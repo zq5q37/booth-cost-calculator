@@ -121,7 +121,7 @@
   /* Mobile-specific overrides */
 @media (max-width: 600px) {
   .card {
-    width: 80px;
+    width: 100px;
     height: 110px;
     padding: 6px;
     font-size: 14px;
@@ -132,7 +132,7 @@
   }
 
   .controls button {
-    font-size: 14px;
+    font-size: 18px;
     padding: 4px 8px;
   }
 
@@ -153,8 +153,8 @@
 
   /* Ensure no scrolling */
   html, body {
-    height: 100vh;
-    overflow: hidden;
+    /* height: 100vh; */
+    /* overflow: hidden; */
   }
 
   body {
@@ -197,12 +197,14 @@
       
   <div class="total" id="total">Total: $0</div>
   <div>
-    <button id="reset" class="reset-button">Reset</button>
+    <!-- <button id="download" class="reset-button">Download Orders</button> -->
     <button id="save" class="reset-button">Save Order</button>
-    <button id="download" class="reset-button">Download Orders</button>
+    <button id="reset" class="reset-button">Reset</button>
 </div>
 
-    <div id="order-list" style="margin-bottom: 32px; width: 90%; max-width: 500px;"></div>
+    <div id="order-list" style="margin-bottom: 32px; width: 90%;"></div>
+
+    <button id="download" class="reset-button">Download Orders</button>
 
 
   <!-- <script src="script.js"></script> -->
