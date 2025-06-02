@@ -324,10 +324,97 @@
         updateTotal();
       }
 
+      function updateBreakdown(printItems) {
+        let breakdown = [];
+        let printTotal = 0;
+
+        if (printItems.length) {
+          let line = `[Prints 3-for-2]: `;
+          let groupTotal = 0;
+
+          printItems.sort((a, b) => b - a);
+          let labels = [];
+
+          let tempIndex = 0;
+          items.forEach(({ name, type, price }) => {
+            if (type === "print" && state[name] > 0) {
+              for (let i = 0; i < state[name]; i++) {
+                labels.push({ price, label: name });
+              }
+            }
+          });
+
+          for (let i = 0; i < printItems.length; i++) {
+            const isFree = (i + 1) % 3 === 0;
+            const price = printItems[i];
+            const label = labels[i]?.label || "";
+            const text = `$${price} (${label})`;
+
+            if (isFree) {
+              line += `<s>${text}</s>, `;
+            } else {
+              groupTotal += price;
+              line += `${text}, `;
+            }
+          }
+
+          line = line.replace(/, $/, ` = $${groupTotal}`);
+          printTotal = groupTotal;
+          breakdown.push(line);
+        }
+
+        let keychainTotal = 0;
+        let standTotal = 0;
+
+        items.forEach(({ name, type, hasSpecial }) => {
+          const count = state[name];
+          if (count === 0 || type === "print") return;
+
+          if (type === "keychain" || type === "stand") {
+            const [p1, p2] = type === "keychain" ? [8, 15] : [20, 36];
+            const pairs = Math.floor(count / 2);
+            const singles = count % 2;
+            let group = [];
+            let groupSum = 0;
+
+            if (pairs > 0) {
+              group.push(`(${pairs} pair x $${p2})`);
+              groupSum += pairs * p2;
+            }
+
+            if (singles > 0) {
+              group.push(`(${singles} single x $${p1})`);
+              groupSum += singles * p1;
+            }
+
+            if (hasSpecial) {
+              const specialCount = Math.min(
+                state[`${name}_special`] || 0,
+                count
+              );
+              if (specialCount > 0) {
+                group.push(`(${specialCount} special +$2)`);
+                groupSum += specialCount * 2;
+              }
+            }
+
+            const line = `[${name}]: ${group.join(" + ")} = $${groupSum}`;
+            breakdown.push(line);
+
+            if (type === "keychain") keychainTotal = groupSum;
+            if (type === "stand") standTotal = groupSum;
+          }
+        });
+
+        document.getElementById("calculation-breakdown").innerHTML =
+          breakdown.join("<br>");
+
+        return printTotal;
+      }
+
       function updateTotal() {
         let total = 0;
         const printItems = [];
-        const breakdownLines = [];
 
         items.forEach(({ name, type, price, hasSpecial }) => {
           const count = state[name];
@@ -341,10 +428,6 @@
             const subTotal = pairs * p2 + singles * p1;
             total += subTotal;
 
-            breakdownLines.push(
-              `${name} (${count}): ${pairs} pairs * $${p2} + ${singles} single * $${p1} = $${subTotal}`
-            );
-
             if (hasSpecial) {
               const specialCount = Math.min(
                 state[`${name}_special`] || 0,
@@ -353,9 +436,6 @@
               if (specialCount > 0) {
                 const specialTotal = specialCount * 2;
                 total += specialTotal;
-                breakdownLines.push(
-                  `  + Special (${specialCount}): $${specialTotal}`
-                );
               }
             }
           }
@@ -363,21 +443,10 @@
 
         printItems.sort((a, b) => b - a);
 
-        let printTotal = 0;
-        for (let i = 0; i < printItems.length; i++) {
-          if ((i + 1) % 3 !== 0) {
-            printTotal += printItems[i];
-            breakdownLines.push(`Print #${i + 1} (pay): $${printItems[i]}`);
-          } else {
-            breakdownLines.push(`Print #${i + 1} (free): $${printItems[i]}`);
-          }
-        }
+        const printTotal = updateBreakdown(printItems);
         total += printTotal;
 
         document.getElementById("total").textContent = `Total: $${total}`;
-
-        document.getElementById("calculation-breakdown").innerHTML =
-          breakdownLines.join("<br>");
       }
 
       document.getElementById("reset").addEventListener("click", () => {
