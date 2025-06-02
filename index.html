@@ -4,7 +4,109 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Booth Calculator</title>
-  <link rel="stylesheet" href="style.css" />
+  <!-- <link rel="stylesheet" href="style.css" /> -->
+  <style>
+    body {
+    font-family: sans-serif;
+    margin: 0;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    margin: 24px 0 16px;
+    color: #333;
+  }
+  
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+
+  .row {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  
+  
+  .card {
+    width: 120px;
+    height: 140px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+    padding: 8px;
+  }
+  
+  .card span {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+  
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  
+  .controls button {
+    font-size: 18px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: rgba(240, 240, 240, 0.7);
+    cursor: pointer;
+  }
+  
+  .count {
+    font-size: 20px;
+    min-width: 24px;
+    text-align: center;
+  }
+  
+  
+  .total {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 24px 0;
+  }
+
+  .reset-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 32px;
+  }
+  
+  .reset-button:hover {
+    background-color: #555;
+  }
+    
+  </style>
 </head>
 <body>
     <h1 class="header">Miyu Shop Calculator</h1>
@@ -17,6 +119,90 @@
   <div class="total" id="total">Total: $0</div>
   <button id="reset" class="reset-button">Reset</button>
 
-  <script src="script.js"></script>
+  <!-- <script src="script.js"></script> -->
+  <script>
+   const items = [
+    { name: "A3", price: 20, type: "print", color: "#FFCC6F" },
+    { name: "A4", price: 12, type: "print", color: "#CF6FFF" },
+    { name: "A5", price: 8, type: "print", color: "#6FFAFF" },
+    { name: "Mini", price: 4, type: "print", color: "#FF6FB2" },
+    { name: "Sticker", price: 2, type: "print", color: "#FF9999" },
+    { name: "Keychain", price: 8, type: "keychain", color: "#FFA07A" },
+    { name: "Stand", price: 20, type: "stand", color: "#90EE90" },
+  ];
+  
+  const state = {};
+  const row1 = document.getElementById("row1");
+const row2 = document.getElementById("row2");
+
+  
+items.forEach((item, index) => {
+    state[item.name] = 0;
+  
+    const card = document.createElement("div");
+    card.className = "card";
+    card.style.backgroundColor = item.color;
+  
+    card.innerHTML = `
+      <span>${item.name}</span>
+      <div class="controls">
+        <button onclick="changeQty('${item.name}', -1)">-</button>
+        <div class="count" id="count-${item.name}">0</div>
+        <button onclick="changeQty('${item.name}', 1)">+</button>
+      </div>
+    `;
+  
+    // First 4 in row1, rest in row2
+    (index < 4 ? row1 : row2).appendChild(card);
+  });
+  
+  
+  function changeQty(name, delta) {
+    state[name] = Math.max(0, state[name] + delta);
+    document.getElementById(`count-${name}`).textContent = state[name];
+    updateTotal();
+  }
+  
+  function updateTotal() {
+    let total = 0;
+    const printItems = [];
+  
+    items.forEach(({ name, type, price }) => {
+      const count = state[name];
+  
+      if (type === "print") {
+        for (let i = 0; i < count; i++) printItems.push(price);
+      } else if (type === "keychain" || type === "stand") {
+        const [p1, p2] = type === "keychain" ? [8, 15] : [20, 36];
+        const pairs = Math.floor(count / 2);
+        const singles = count % 2;
+        total += pairs * p2 + singles * p1;
+      }
+    });
+  
+    // Apply buy 2 get 1 free to prints/stickers
+    printItems.sort((a, b) => b - a);
+    for (let i = 0; i < printItems.length; i++) {
+      if ((i + 1) % 3 !== 0) {
+        total += printItems[i];
+      }
+    }
+  
+    document.getElementById("total").textContent = `Total: $${total}`;
+}
+
+    document.getElementById("reset").addEventListener("click", () => {
+        for (const name in state) {
+          state[name] = 0;
+          document.getElementById(`count-${name}`).textContent = "0";
+        }
+        updateTotal();
+      });
+      
+
+  
+      
+  
+  </script>
 </body>
 </html>
