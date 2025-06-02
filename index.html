@@ -288,11 +288,6 @@
             state[name] = state[base];
           }
         } else {
-          // const specialName = `${name}_special`;
-          // if (typeof state[specialName] !== "number") state[specialName] = 0;
-          // if (state[specialName] > state[name]) {
-          //   state[specialName] = state[name];
-
           const item = items.find((i) => i.name === name);
           if (item && item.hasSpecial === true) {
             const specialName = `${name}_special`;
