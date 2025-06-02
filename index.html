@@ -345,35 +345,35 @@ function updateTotal() {
 
       const orders = [];
 
-document.getElementById("save").addEventListener("click", () => {
+      document.getElementById("save").addEventListener("click", () => {
   const currentOrder = {};
 
   let hasItems = false;
-  totalItems = 0;
+  let totalItems = 0;
 
   for (const name in state) {
-    // if (state[name] > 0) {
     currentOrder[name] = state[name];
-    //   hasItems = true;
     totalItems += state[name];
-    // }
   }
 
-  if (totalItems > 0){
+  if (totalItems > 0) {
     hasItems = true;
   }
 
-  if (!hasItems) return; // don't save empty orders
+  if (!hasItems) return; // Don't save empty orders
 
   const totalText = document.getElementById("total").textContent;
   currentOrder.total = parseInt(totalText.replace(/\D/g, ""), 10);
 
+  // ✅ Add timestamp here
+  currentOrder.timestamp = new Date().toLocaleString();
+
   orders.push(currentOrder);
   renderOrders();
 
-  // Optionally reset after saving
   document.getElementById("reset").click();
 });
+
 
 function renderOrders() {
   const orderList = document.getElementById("order-list");
@@ -381,13 +381,12 @@ function renderOrders() {
 
   if (orders.length === 0) return;
 
-  // Get all unique item names from all orders
   const allKeys = new Set();
   orders.forEach(order => Object.keys(order).forEach(k => allKeys.add(k)));
   allKeys.delete("total");
+  allKeys.delete("timestamp"); // We'll add it manually to control position
   const itemKeys = Array.from(allKeys);
 
-  // Create table
   const table = document.createElement("table");
   table.style.borderCollapse = "collapse";
   table.style.width = "100%";
@@ -395,9 +394,9 @@ function renderOrders() {
   table.style.marginTop = "16px";
   table.style.fontSize = "16px";
 
-  // Create header row
+  // ✅ Include "Time" in the header
   const headerRow = document.createElement("tr");
-  ["Order", ...itemKeys, "Total"].forEach(text => {
+  ["Order", ...itemKeys, "Total", "Time"].forEach(text => {
     const th = document.createElement("th");
     th.textContent = text;
     th.style.border = "1px solid #ccc";
@@ -407,7 +406,7 @@ function renderOrders() {
   });
   table.appendChild(headerRow);
 
-  // Add each order as a row
+  // ✅ Add timestamp to each row
   orders.forEach((order, idx) => {
     const row = document.createElement("tr");
 
@@ -426,16 +425,23 @@ function renderOrders() {
     });
 
     const totalCell = document.createElement("td");
-    totalCell.textContent = order.total || "$0";
+    totalCell.textContent = order.total ? `$${order.total}` : "$0";
     totalCell.style.border = "1px solid #ccc";
     totalCell.style.padding = "8px";
     row.appendChild(totalCell);
+
+    const timeCell = document.createElement("td");
+    timeCell.textContent = order.timestamp || "";
+    timeCell.style.border = "1px solid #ccc";
+    timeCell.style.padding = "8px";
+    row.appendChild(timeCell);
 
     table.appendChild(row);
   });
 
   orderList.appendChild(table);
 }
+
 
 
 document.getElementById("download").addEventListener("click", () => {
