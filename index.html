@@ -7,6 +7,8 @@
 
   <title>Booth Calculator</title>
   <!-- <link rel="stylesheet" href="style.css" /> -->
+  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+
   <style>
     body {
     font-family: sans-serif;
@@ -129,6 +131,11 @@
       
   <div class="total" id="total">Total: $0</div>
   <button id="reset" class="reset-button">Reset</button>
+  <button id="save" class="reset-button">Save Order</button>
+  <button id="download" class="reset-button">Download Orders</button>
+
+    <div id="order-list" style="margin-bottom: 32px; width: 90%; max-width: 500px;"></div>
+
 
   <!-- <script src="script.js"></script> -->
   <script>
@@ -258,6 +265,123 @@ function updateTotal() {
         }
         updateTotal();
       });
+
+      const orders = [];
+
+document.getElementById("save").addEventListener("click", () => {
+  const currentOrder = {};
+
+  let hasItems = false;
+  totalItems = 0;
+
+  for (const name in state) {
+    // if (state[name] > 0) {
+    currentOrder[name] = state[name];
+    //   hasItems = true;
+    totalItems += state[name];
+    // }
+  }
+
+  if (totalItems > 0){
+    hasItems = true;
+  }
+
+  if (!hasItems) return; // don't save empty orders
+
+  const totalText = document.getElementById("total").textContent;
+  currentOrder.total = parseInt(totalText.replace(/\D/g, ""), 10);
+
+  orders.push(currentOrder);
+  renderOrders();
+
+  // Optionally reset after saving
+  document.getElementById("reset").click();
+});
+
+function renderOrders() {
+  const orderList = document.getElementById("order-list");
+  orderList.innerHTML = "";
+
+  if (orders.length === 0) return;
+
+  // Get all unique item names from all orders
+  const allKeys = new Set();
+  orders.forEach(order => Object.keys(order).forEach(k => allKeys.add(k)));
+  allKeys.delete("total");
+  const itemKeys = Array.from(allKeys);
+
+  // Create table
+  const table = document.createElement("table");
+  table.style.borderCollapse = "collapse";
+  table.style.width = "100%";
+  table.style.maxWidth = "600px";
+  table.style.marginTop = "16px";
+  table.style.fontSize = "16px";
+
+  // Create header row
+  const headerRow = document.createElement("tr");
+  ["Order", ...itemKeys, "Total"].forEach(text => {
+    const th = document.createElement("th");
+    th.textContent = text;
+    th.style.border = "1px solid #ccc";
+    th.style.padding = "8px";
+    th.style.backgroundColor = "#f0f0f0";
+    headerRow.appendChild(th);
+  });
+  table.appendChild(headerRow);
+
+  // Add each order as a row
+  orders.forEach((order, idx) => {
+    const row = document.createElement("tr");
+
+    const orderCell = document.createElement("td");
+    orderCell.textContent = idx + 1;
+    orderCell.style.border = "1px solid #ccc";
+    orderCell.style.padding = "8px";
+    row.appendChild(orderCell);
+
+    itemKeys.forEach(key => {
+      const td = document.createElement("td");
+      td.textContent = order[key] || "0";
+      td.style.border = "1px solid #ccc";
+      td.style.padding = "8px";
+      row.appendChild(td);
+    });
+
+    const totalCell = document.createElement("td");
+    totalCell.textContent = order.total || "$0";
+    totalCell.style.border = "1px solid #ccc";
+    totalCell.style.padding = "8px";
+    row.appendChild(totalCell);
+
+    table.appendChild(row);
+  });
+
+  orderList.appendChild(table);
+}
+
+
+document.getElementById("download").addEventListener("click", () => {
+  if (orders.length === 0) return alert("No orders to download!");
+
+  const rows = [];
+
+  orders.forEach((order, idx) => {
+    const row = { Order: idx + 1 };
+    for (const key in order) {
+      row[key] = order[key];
+    }
+    rows.push(row);
+  });
+
+  const worksheet = XLSX.utils.json_to_sheet(rows);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Orders");
+
+  XLSX.writeFile(workbook, "Day_x_orders.xlsx");
+});
+
+
       
 
   
