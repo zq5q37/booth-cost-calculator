@@ -246,25 +246,25 @@
         card.style.backgroundColor = item.color;
 
         card.innerHTML = `
-      <span>${item.name}</span>
-      <div class="controls">
-        <button onclick="changeQty('${item.name}', -1)">-</button>
-        <div class="count" id="count-${item.name}">0</div>
-        <button onclick="changeQty('${item.name}', 1)">+</button>
-      </div>
-      ${
-        item.hasSpecial
-          ? `
-      <div class="controls">
-        <button onclick="changeQty('${item.name}_special', -1)">-</button>
-        <div class="count" id="count-${item.name}_special">0</div>
-        <button onclick="changeQty('${item.name}_special', 1)">+</button>
-      </div>
-      <div style="font-size: 12px;">Special (+$2)</div>
-    `
-          : ""
-      }
-    `;
+        <span>${item.name}</span>
+        <div class="controls">
+          <button onclick="changeQty('${item.name}', -1)">-</button>
+          <div class="count" id="count-${item.name}">0</div>
+          <button onclick="changeQty('${item.name}', 1)">+</button>
+        </div>
+        ${
+          item.hasSpecial
+            ? `
+        <div class="controls">
+          <button onclick="changeQty('${item.name}_special', -1)">-</button>
+          <div class="count" id="count-${item.name}_special">0</div>
+          <button onclick="changeQty('${item.name}_special', 1)">+</button>
+        </div>
+        <div style="font-size: 12px;">Special (+$2)</div>
+      `
+            : ""
+        }
+      `;
 
         if (!isMobile) {
           // On desktop, split cards: first 4 to row1, rest to row2
@@ -288,10 +288,18 @@
             state[name] = state[base];
           }
         } else {
-          const specialName = `${name}_special`;
-          if (typeof state[specialName] !== "number") state[specialName] = 0;
-          if (state[specialName] > state[name]) {
-            state[specialName] = state[name];
+          // const specialName = `${name}_special`;
+          // if (typeof state[specialName] !== "number") state[specialName] = 0;
+          // if (state[specialName] > state[name]) {
+          //   state[specialName] = state[name];
+
+          const item = items.find((i) => i.name === name);
+          if (item && item.hasSpecial === true) {
+            const specialName = `${name}_special`;
+            if (typeof state[specialName] !== "number") state[specialName] = 0;
+            if (state[specialName] > state[name]) {
+              state[specialName] = state[name];
+            }
           }
         }
 
