@@ -118,6 +118,72 @@
   .reset-button:hover {
     background-color: #555;
   }
+  /* Mobile-specific overrides */
+@media (max-width: 600px) {
+  .card {
+    width: 80px;
+    height: 110px;
+    padding: 6px;
+    font-size: 14px;
+  }
+
+  .card span {
+    font-size: 16px;
+  }
+
+  .controls button {
+    font-size: 14px;
+    padding: 4px 8px;
+  }
+
+  .count {
+    font-size: 16px;
+    min-width: 20px;
+  }
+
+  .total {
+    font-size: 20px;
+    margin: 8px 0;
+  }
+
+  .reset-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  /* Ensure no scrolling */
+  html, body {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .container {
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 0 8px;
+    overflow: hidden;
+    align-content: center;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+  }
+}
     
   </style>
 </head>
@@ -130,9 +196,11 @@
       </div>
       
   <div class="total" id="total">Total: $0</div>
-  <button id="reset" class="reset-button">Reset</button>
-  <button id="save" class="reset-button">Save Order</button>
-  <button id="download" class="reset-button">Download Orders</button>
+  <div>
+    <button id="reset" class="reset-button">Reset</button>
+    <button id="save" class="reset-button">Save Order</button>
+    <button id="download" class="reset-button">Download Orders</button>
+</div>
 
     <div id="order-list" style="margin-bottom: 32px; width: 90%; max-width: 500px;"></div>
 
@@ -153,6 +221,8 @@
   const state = {};
   const row1 = document.getElementById("row1");
 const row2 = document.getElementById("row2");
+
+const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
   
 items.forEach((item, index) => {
@@ -186,8 +256,13 @@ items.forEach((item, index) => {
   }
     `;
   
-    // First 4 in row1, rest in row2
+    if (!isMobile) {
+    // On desktop, split cards: first 4 to row1, rest to row2
     (index < 4 ? row1 : row2).appendChild(card);
+  } else {
+    // On mobile, just append all to row1 (or your preferred logic)
+    row1.appendChild(card);
+  }
   });
   
   
