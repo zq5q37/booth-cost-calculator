@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"/> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
   <title>Booth Calculator</title>
   <!-- <link rel="stylesheet" href="style.css" /> -->
   <style>
@@ -14,6 +16,15 @@
     flex-direction: column;
     align-items: center;
   }
+
+  html, body {
+  touch-action: manipulation;
+  overscroll-behavior: none; /* optional: disables bounce scrolling */
+}
+
+  button {
+  touch-action: manipulation;
+}
 
   .header {
     font-size: 36px;
@@ -127,7 +138,8 @@
     { name: "A5", price: 8, type: "print", color: "#6FFAFF" },
     { name: "Mini", price: 4, type: "print", color: "#FF6FB2" },
     { name: "Sticker", price: 2, type: "print", color: "#FF9999" },
-    { name: "Keychain", price: 8, type: "keychain", color: "#FFA07A" },
+    { name: "Keychain", price: 8, type: "keychain", color: "#FFA07A", hasSpecial: true },
+    // { name: "Special Keychain", price: 2, type: "special_keychain", color: "#FFA07A" },
     { name: "Stand", price: 20, type: "stand", color: "#90EE90" },
   ];
   
@@ -138,6 +150,9 @@ const row2 = document.getElementById("row2");
   
 items.forEach((item, index) => {
     state[item.name] = 0;
+    if (item.hasSpecial) {
+    state[`${item.name}_special`] = 0;
+  }
   
     const card = document.createElement("div");
     card.className = "card";
@@ -150,6 +165,18 @@ items.forEach((item, index) => {
         <div class="count" id="count-${item.name}">0</div>
         <button onclick="changeQty('${item.name}', 1)">+</button>
       </div>
+      ${
+    item.hasSpecial
+      ? `
+      <div class="controls">
+        <button onclick="changeQty('${item.name}_special', -1)">-</button>
+        <div class="count" id="count-${item.name}_special">0</div>
+        <button onclick="changeQty('${item.name}_special', 1)">+</button>
+      </div>
+      <div style="font-size: 12px;">Special (+$2)</div>
+    `
+      : ""
+  }
     `;
   
     // First 4 in row1, rest in row2
@@ -158,43 +185,76 @@ items.forEach((item, index) => {
   
   
   function changeQty(name, delta) {
-    state[name] = Math.max(0, state[name] + delta);
-    document.getElementById(`count-${name}`).textContent = state[name];
-    updateTotal();
+  if (typeof state[name] !== 'number') state[name] = 0;
+
+  state[name] = Math.max(0, state[name] + delta);
+
+  const base = name.split('_')[0];
+
+  if (name.includes('_special')) {
+    if (typeof state[base] !== 'number') state[base] = 0;
+    if (state[name] > state[base]) {
+      state[name] = state[base];
+    }
+  } else {
+    // const specialName = `${name}_special`;
+    // if (typeof state[specialName] !== 'number') state[specialName] = 0;
+    // if (state[specialName] > state[name]) {
+    //   state[specialName] = state[name];
+    // }
   }
+
+  if (document.getElementById(`count-${name}`))
+    document.getElementById(`count-${name}`).textContent = state[name];
+  if (document.getElementById(`count-${base}_special`))
+    document.getElementById(`count-${base}_special`).textContent = state[`${base}_special`];
+
+  updateTotal();
+}
+
+
   
-  function updateTotal() {
-    let total = 0;
-    const printItems = [];
-  
-    items.forEach(({ name, type, price }) => {
-      const count = state[name];
-  
-      if (type === "print") {
-        for (let i = 0; i < count; i++) printItems.push(price);
-      } else if (type === "keychain" || type === "stand") {
-        const [p1, p2] = type === "keychain" ? [8, 15] : [20, 36];
-        const pairs = Math.floor(count / 2);
-        const singles = count % 2;
-        total += pairs * p2 + singles * p1;
-      }
-    });
-  
-    // Apply buy 2 get 1 free to prints/stickers
-    printItems.sort((a, b) => b - a);
-    for (let i = 0; i < printItems.length; i++) {
-      if ((i + 1) % 3 !== 0) {
-        total += printItems[i];
+function updateTotal() {
+  let total = 0;
+  const printItems = [];
+
+  items.forEach(({ name, type, price, hasSpecial }) => {
+    const count = Number(state[name]) || 0;
+
+    if (type === "print") {
+      for (let i = 0; i < count; i++) printItems.push(price);
+    } else if (type === "keychain" || type === "stand") {
+      const [p1, p2] = type === "keychain" ? [8, 15] : [20, 36];
+      const pairs = Math.floor(count / 2);
+      const singles = count % 2;
+      total += pairs * p2 + singles * p1;
+
+      if (hasSpecial) {
+        const specialCount = Math.min(Number(state[`${name}_special`]) || 0, count);
+        total += specialCount * 2;
       }
     }
-  
-    document.getElementById("total").textContent = `Total: $${total}`;
+  });
+
+  // Apply 3-for-2 discount for prints
+  printItems.sort((a, b) => b - a);
+  for (let i = 0; i < printItems.length; i++) {
+    if ((i + 1) % 3 !== 0) total += printItems[i];
+  }
+
+  const totalEl = document.getElementById("total");
+  if (totalEl) totalEl.textContent = `Total: $${total}`;
 }
+
+
 
     document.getElementById("reset").addEventListener("click", () => {
         for (const name in state) {
           state[name] = 0;
           document.getElementById(`count-${name}`).textContent = "0";
+          if (document.getElementById(`count-${name}_special`)){
+            document.getElementById(`count-${name}_special`).textContent = "0";
+          }
         }
         updateTotal();
       });
