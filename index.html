@@ -118,6 +118,18 @@
       .reset-button:hover {
         background-color: #555;
       }
+
+      #calculation-breakdown {
+        max-width: 600px;
+        margin-top: 16px;
+        font-family: monospace;
+        border: 2px solid #ccc;
+        padding: 16px;
+        border-radius: 12px;
+        background-color: #fafafa;
+        white-space: pre-line; /* preserve line breaks */
+      }
+
       /* Mobile-specific overrides */
       @media (max-width: 600px) {
         .card {
@@ -171,6 +183,11 @@
       <div class="row" id="row1"></div>
       <div class="row" id="row2"></div>
     </div>
+
+    <div
+      id="calculation-breakdown"
+      style="max-width: 600px; margin-top: 16px; font-family: monospace"
+    ></div>
 
     <div class="total" id="total">Total: $0</div>
     <div>
@@ -310,9 +327,10 @@
       function updateTotal() {
         let total = 0;
         const printItems = [];
+        const breakdownLines = [];
 
         items.forEach(({ name, type, price, hasSpecial }) => {
-          const count = Number(state[name]) || 0;
+          const count = state[name];
 
           if (type === "print") {
             for (let i = 0; i < count; i++) printItems.push(price);
@@ -320,26 +338,46 @@
             const [p1, p2] = type === "keychain" ? [8, 15] : [20, 36];
             const pairs = Math.floor(count / 2);
             const singles = count % 2;
-            total += pairs * p2 + singles * p1;
+            const subTotal = pairs * p2 + singles * p1;
+            total += subTotal;
+
+            breakdownLines.push(
+              `${name} (${count}): ${pairs} pairs * $${p2} + ${singles} single * $${p1} = $${subTotal}`
+            );
 
             if (hasSpecial) {
               const specialCount = Math.min(
-                Number(state[`${name}_special`]) || 0,
+                state[`${name}_special`] || 0,
                 count
               );
-              total += specialCount * 2;
+              if (specialCount > 0) {
+                const specialTotal = specialCount * 2;
+                total += specialTotal;
+                breakdownLines.push(
+                  `  + Special (${specialCount}): $${specialTotal}`
+                );
+              }
             }
           }
         });
 
-        // Apply 3-for-2 discount for prints
         printItems.sort((a, b) => b - a);
-        for (let i = 0; i < printItems.length; i++) {
-          if ((i + 1) % 3 !== 0) total += printItems[i];
-        }
 
-        const totalEl = document.getElementById("total");
-        if (totalEl) totalEl.textContent = `Total: $${total}`;
+        let printTotal = 0;
+        for (let i = 0; i < printItems.length; i++) {
+          if ((i + 1) % 3 !== 0) {
+            printTotal += printItems[i];
+            breakdownLines.push(`Print #${i + 1} (pay): $${printItems[i]}`);
+          } else {
+            breakdownLines.push(`Print #${i + 1} (free): $${printItems[i]}`);
+          }
+        }
+        total += printTotal;
+
+        document.getElementById("total").textContent = `Total: $${total}`;
+
+        document.getElementById("calculation-breakdown").innerHTML =
+          breakdownLines.join("<br>");
       }
 
       document.getElementById("reset").addEventListener("click", () => {
