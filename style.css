@@ -15,6 +15,13 @@ body {
 
 button {
   touch-action: manipulation;
+  padding: 2px 5px;
+  font-size: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #979797;
+  color: white;
+  cursor: pointer;
 }
 
 .header {
@@ -29,6 +36,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 10px;
 }
 
 .row {
@@ -52,6 +60,8 @@ button {
   user-select: none;
   text-align: center;
   padding: 8px;
+
+  border: 1px solid #0000006d; /* 👈 fixed line */
 }
 
 .card span {
@@ -67,13 +77,67 @@ button {
   margin-top: 12px;
 }
 
-.controls button {
+/* .controls button {
   font-size: 18px;
   padding: 6px 12px;
   border: none;
   border-radius: 6px;
-  background-color: rgba(240, 240, 240, 0.7);
   cursor: pointer;
+  background: #e0e0e086;
+
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2),
+     dark shadow -5px -5px 10px rgba(255, 255, 255, 0.4); light highlight
+} */
+
+/* .controls button {
+  font-size: 18px;
+  padding: 5px 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background-color: #c3c3c370;
+  box-shadow: rgba(0, 0, 0, 0.548) 3px 3px 5px,
+    #ffffff 1.5px 1.5px 2px 0px inset, #534f4c93 -3.2px -3.2px 8px 0px inset;
+  cursor: pointer;
+  font-family: Montserrat;
+  transition: 0.1s ease-in-out;
+  
+} */
+
+.controls button {
+  font-size: 18px;
+  padding: 5px 12px;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  background: #e0e0e031;
+  color: black;
+  /* border-radius: 6px; */
+  border: black solid;
+  overflow: hidden;
+  transition: 0.1s ease-in-out;
+}
+
+.controls button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(214, 214, 214, 0.2);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.controls button:active {
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px,
+    inset 1px 1px 4px rgba(0, 0, 0, 0.6),
+    inset -3px -3px 8px rgba(80, 80, 80, 0.4); /* darker for multiply look */
+}
+
+.reset-button:active {
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px,
+    inset 1px 1px 4px rgba(0, 0, 0, 0.6),
+    inset -3px -3px 8px rgba(80, 80, 80, 0.4); /* darker for multiply look */
 }
 
 .count {
