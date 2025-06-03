@@ -1,38 +1,41 @@
-// window.addEventListener("DOMContentLoaded", () => {
-const items = [
-  { name: "A3", price: 20, type: "print", color: "#FFCC6F" },
-  { name: "A4", price: 12, type: "print", color: "#CF6FFF" },
-  { name: "A5", price: 8, type: "print", color: "#6FFAFF" },
-  { name: "Mini", price: 4, type: "print", color: "#FF6FB2" },
-  { name: "Sticker", price: 2, type: "print", color: "#FF9999" },
-  {
-    name: "Keychain",
-    price: 8,
-    type: "keychain",
-    color: "#FFA07A",
-    hasSpecial: true,
-  },
-  // { name: "Special Keychain", price: 2, type: "special_keychain", color: "#FFA07A" },
-  { name: "Stand", price: 20, type: "stand", color: "#90EE90" },
-];
+// main.js
+import { defaultItems } from "./data.js";
+// import localforage from "localforage";
+
+// let items = JSON.parse(localStorage.getItem("customItems")) || [
+//   ...defaultItems,
+// ];
+// const items = (await localforage.getItem("customItems")) || defaultItems;
+const items = defaultItems;
+
+window.addEventListener("DOMContentLoaded", async () => {
+  await refreshItems();
+  updateTotal();
+});
 
 const state = {};
+
 const row1 = document.getElementById("row1");
 const row2 = document.getElementById("row2");
-
 const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
-items.forEach((item, index) => {
-  state[item.name] = 0;
-  if (item.hasSpecial) {
-    state[`${item.name}_special`] = 0;
-  }
+async function refreshItems() {
+  const items = (await localforage.getItem("customItems")) || defaultItems;
+  // Clear rows before appending new cards (to avoid duplicates)
+  row1.innerHTML = "";
+  row2.innerHTML = "";
 
-  const card = document.createElement("div");
-  card.className = "card";
-  card.style.backgroundColor = item.color;
+  items.forEach((item, index) => {
+    state[item.name] = 0;
+    if (item.hasSpecial) {
+      state[`${item.name}_special`] = 0;
+    }
 
-  card.innerHTML = `
+    const card = document.createElement("div");
+    card.className = "card";
+    card.style.backgroundColor = item.color;
+
+    card.innerHTML = `
         <span>${item.name}</span>
         <div class="controls">
           <button onclick="changeQty('${item.name}', -1)">-</button>
@@ -53,14 +56,32 @@ items.forEach((item, index) => {
         }
       `;
 
-  if (!isMobile) {
-    // On desktop, split cards: first 4 to row1, rest to row2
-    (index < 4 ? row1 : row2).appendChild(card);
-  } else {
-    // On mobile, just append all to row1 (or your preferred logic)
-    row1.appendChild(card);
-  }
-});
+    if (!isMobile) {
+      // On desktop, split cards: first 4 to row1, rest to row2
+      (index < 4 ? row1 : row2).appendChild(card);
+    } else {
+      // On mobile, just append all to row1 (or your preferred logic)
+      row1.appendChild(card);
+    }
+  });
+}
+
+// const items = [
+//   { name: "A3", price: 20, type: "print", color: "#FFCC6F" },
+//   { name: "A4", price: 12, type: "print", color: "#CF6FFF" },
+//   { name: "A5", price: 8, type: "print", color: "#6FFAFF" },
+//   { name: "Mini", price: 4, type: "print", color: "#FF6FB2" },
+//   { name: "Sticker", price: 2, type: "print", color: "#FF9999" },
+//   {
+//     name: "Keychain",
+//     price: 8,
+//     type: "keychain",
+//     color: "#FFA07A",
+//     hasSpecial: true,
+//   },
+//   // { name: "Special Keychain", price: 2, type: "special_keychain", color: "#FFA07A" },
+//   { name: "Stand", price: 20, type: "stand", color: "#90EE90" },
+// ];
 
 function changeQty(name, delta) {
   if (typeof state[name] !== "number") state[name] = 0;
@@ -99,7 +120,7 @@ function updateBreakdown(printItems) {
   let printTotal = 0;
 
   if (printItems.length) {
-    let line = `[Prints 3-for-2]: `;
+    let line = `[Prints Buy-2-Free-1]: `;
     let groupTotal = 0;
 
     printItems.sort((a, b) => b - a);
@@ -214,6 +235,10 @@ function updateTotal() {
 }
 
 document.getElementById("reset").addEventListener("click", () => {
+  resetAll();
+});
+
+function resetAll() {
   for (const name in state) {
     state[name] = 0;
     const countEl = document.getElementById(`count-${name}`);
@@ -224,7 +249,7 @@ document.getElementById("reset").addEventListener("click", () => {
     }
   }
   updateTotal();
-});
+}
 
 let orders = [];
 const savedOrders = localStorage.getItem("orders");
@@ -360,3 +385,7 @@ document.getElementById("clear-orders").addEventListener("click", () => {
 });
 
 // });
+window.changeQty = changeQty; // 👈 make globally accessible
+window.updateTotal = updateTotal; // 👈 make globally accessible
+window.refreshItems = refreshItems; // 👈 make globally accessible
+window.resetAll = resetAll; // 👈 make globally accessible

@@ -10,9 +10,14 @@
     <title>Booth Calculator</title>
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js"></script>
   </head>
   <body>
     <h1 class="header">Miyu Shop Calculator</h1>
+    <button onclick="openSettings()">⚙ Settings</button>
+    <div id="settings-panel" style="display: none">
+      <!-- Inputs for item settings will be dynamically added -->
+    </div>
 
     <div class="container">
       <div class="row" id="row1"></div>
@@ -60,6 +65,8 @@
       Clear Orders
     </button>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
+    <script type="module" src="data.js"></script>
+    <script type="module" src="settings.js"></script>
   </body>
 </html>
