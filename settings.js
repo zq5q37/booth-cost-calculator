@@ -1,6 +1,9 @@
 // settings.js
 import { defaultItems, defaultDeals } from "./data.js";
 
+const originalDefaultItems = JSON.parse(JSON.stringify(defaultItems));
+const originalDefaultDeals = JSON.parse(JSON.stringify(defaultDeals));
+
 export function openSettings() {
   const panel = document.getElementById("settings-panel");
 
@@ -61,6 +64,7 @@ export function openSettings() {
   }
 
   panel.innerHTML += `
+    <button id="reset-settings-button">Reset to Default</button>
     <button id="close-settings-button">Close</button>
   `;
 
@@ -69,6 +73,29 @@ export function openSettings() {
   document
     .getElementById("close-settings-button")
     .addEventListener("click", closeSettings);
+
+  document
+    .getElementById("reset-settings-button")
+    .addEventListener("click", () => {
+      // Reset in-memory items & deals to default
+      Object.assign(
+        defaultItems,
+        JSON.parse(JSON.stringify(originalDefaultItems))
+      );
+      Object.assign(
+        defaultDeals,
+        JSON.parse(JSON.stringify(originalDefaultDeals))
+      );
+
+      // Update localforage
+      localforage.setItem("customItems", originalDefaultItems);
+      localforage.setItem("customItemsdeals", originalDefaultDeals);
+
+      // Reopen the panel to refresh UI with default values
+      openSettings();
+
+      updateTotal();
+    });
 
   panel.querySelectorAll("input").forEach((input) => {
     input.addEventListener("input", saveSettings);
