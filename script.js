@@ -1,5 +1,6 @@
 // main.js
-import { defaultItems } from "./data.js";
+import { defaultItems, defaultDeals } from "./data.js";
+
 // import localforage from "localforage";
 
 // let items = JSON.parse(localStorage.getItem("customItems")) || [
@@ -7,6 +8,7 @@ import { defaultItems } from "./data.js";
 // ];
 // const items = (await localforage.getItem("customItems")) || defaultItems;
 const items = defaultItems;
+const deals = defaultDeals;
 
 window.addEventListener("DOMContentLoaded", async () => {
   await refreshItems();
@@ -21,6 +23,7 @@ const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
 async function refreshItems() {
   const items = (await localforage.getItem("customItems")) || defaultItems;
+  const deals = (await localforage.getItem("customItemsDeals")) || defaultDeals;
   // Clear rows before appending new cards (to avoid duplicates)
   row1.innerHTML = "";
   row2.innerHTML = "";
@@ -161,28 +164,30 @@ function updateBreakdown(printItems) {
     const count = state[name];
     if (count === 0 || type === "print") return;
 
-    if (type === "keychain" || type === "stand") {
-      const [p1, p2] = type === "keychain" ? [8, 15] : [20, 36];
+    const deal = deals[type];
+    if (deal?.type === "Bundle2") {
+      const { single, pair, special } = deal;
       const pairs = Math.floor(count / 2);
       const singles = count % 2;
+
       let group = [];
       let groupSum = 0;
 
       if (pairs > 0) {
-        group.push(`(${pairs} pair x $${p2})`);
-        groupSum += pairs * p2;
+        group.push(`(${pairs} pair x $${pair})`);
+        groupSum += pairs * pair;
       }
 
       if (singles > 0) {
-        group.push(`(${singles} single x $${p1})`);
-        groupSum += singles * p1;
+        group.push(`(${singles} single x $${single})`);
+        groupSum += singles * single;
       }
 
-      if (hasSpecial) {
+      if (hasSpecial && special) {
         const specialCount = Math.min(state[`${name}_special`] || 0, count);
         if (specialCount > 0) {
-          group.push(`(${specialCount} special +$2)`);
-          groupSum += specialCount * 2;
+          group.push(`(${specialCount} special +$${special})`);
+          groupSum += specialCount * special;
         }
       }
 
@@ -206,28 +211,29 @@ function updateTotal() {
 
   items.forEach(({ name, type, price, hasSpecial }) => {
     const count = state[name];
+    if (count === 0) return;
 
     if (type === "print") {
       for (let i = 0; i < count; i++) printItems.push(price);
     } else if (type === "keychain" || type === "stand") {
-      const [p1, p2] = type === "keychain" ? [8, 15] : [20, 36];
-      const pairs = Math.floor(count / 2);
-      const singles = count % 2;
-      const subTotal = pairs * p2 + singles * p1;
-      total += subTotal;
+      const deal = deals[type];
+      if (deal?.type === "Bundle2") {
+        const { single, pair, special } = deal;
 
-      if (hasSpecial) {
-        const specialCount = Math.min(state[`${name}_special`] || 0, count);
-        if (specialCount > 0) {
-          const specialTotal = specialCount * 2;
-          total += specialTotal;
+        const pairs = Math.floor(count / 2);
+        const singles = count % 2;
+        total += pairs * pair + singles * single;
+
+        if (hasSpecial && special) {
+          const specialCount = Math.min(state[`${name}_special`] || 0, count);
+          total += specialCount * special;
         }
       }
     }
   });
 
+  // Assume `updateBreakdown` returns total for prints (with discounts)
   printItems.sort((a, b) => b - a);
-
   const printTotal = updateBreakdown(printItems);
   total += printTotal;
 

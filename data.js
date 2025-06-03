@@ -21,8 +21,17 @@ export const defaultItems = [
   { name: "Stand", price: 20, type: "stand", color: "#90EE90" },
 ];
 
-export let deals = {
-  print: "3-for-2",
-  keychain: { pair: 15, single: 8, special: 2 },
-  stand: { pair: 36, single: 20 },
+export const defaultDeals = {
+  print: "Buy2Free1",
+  keychain: {
+    type: "Bundle2",
+    single: 8,
+    pair: 15,
+    special: 2,
+  },
+  stand: {
+    type: "Bundle2",
+    single: 20,
+    pair: 36,
+  },
 };
