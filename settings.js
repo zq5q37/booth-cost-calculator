@@ -27,24 +27,28 @@ export function openSettings() {
 
     if (deal?.type === "Bundle2") {
       bundleRows += `
-        <tr data-index="${index}">
-          <td>${
-            item.name
-          } <button class="delete-item" data-index="${index}">✕</button></td>
-          <td><input type="number" value="${deal.single}" data-deal="${
+        <div class="bundle-item" data-index="${index}" style="padding-bottom: 10px">
+          <div class="bundle-item-header">
+            <strong>${item.name}</strong>
+            <button class="delete-item" data-index="${index}">✕</button>
+          </div>
+          <label>Single</label>
+          <input type="number" value="${deal.single}" data-deal="${
         item.type
-      }-single" /></td>
-          <td><input type="number" value="${deal.pair}" data-deal="${
+      }-single" />
+          
+          <label>Pair</label>
+          <input type="number" value="${deal.pair}" data-deal="${
         item.type
-      }-pair" /></td>
-          <td>
-            ${
-              deal.special != null
-                ? `<input type="number" value="${deal.special}" data-deal="${item.type}-special" />`
-                : "-"
-            }
-          </td>
-        </tr>
+      }-pair" />
+          
+          <label>Special</label>
+          ${
+            deal.special != null
+              ? `<input type="number" value="${deal.special}" data-deal="${item.type}-special" />`
+              : "<div>-</div>"
+          }
+        </div>
       `;
     } else {
       rows += `
@@ -62,19 +66,9 @@ export function openSettings() {
   if (bundleRows) {
     panel.innerHTML += `
       <h3>Bundle Deals</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Single</th>
-            <th>Pair</th>
-            <th>Special</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${bundleRows}
-        </tbody>
-      </table>
+      <div class="bundle-container">
+        ${bundleRows}
+      </div>
     `;
   }
 

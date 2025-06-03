@@ -248,4 +248,16 @@ button {
   .row {
     gap: 8px;
   }
+
+  .bundle-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .bundle-item label {
+    font-weight: bold;
+    margin-top: 0.5rem;
+    display: block;
+  }
 }
