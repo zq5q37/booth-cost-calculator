@@ -11,6 +11,7 @@ html,
 body {
   touch-action: manipulation;
   overscroll-behavior: none; /* optional: disables bounce scrolling */
+  user-select: none;
 }
 
 button {
