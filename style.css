@@ -115,6 +115,27 @@ button {
   white-space: pre-line; /* preserve line breaks */
 }
 
+#settings-panel {
+  display: none;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+/* Optional: improve table responsiveness */
+#settings-panel table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#settings-panel td,
+#settings-panel th {
+  padding: 0.5rem;
+  word-break: break-word;
+  text-align: left;
+}
+
 /* Mobile-specific overrides */
 @media (max-width: 600px) {
   .card {
