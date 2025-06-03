@@ -114,7 +114,7 @@ button {
   background: #e0e0e031;
   color: black;
   /* border-radius: 6px; */
-  border: black solid;
+  border: black solid 1px;
   overflow: hidden;
   transition: 0.1s ease-in-out;
 }
