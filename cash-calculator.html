@@ -1,0 +1,74 @@
+<div id="cash-payment">
+
+  <!-- Display Row -->
+  <div style="display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 8px; text-align: center;">
+    <!-- Labels -->
+    <div>Cash Given</div>
+    <div></div>
+    <div>Total Cost</div>
+    <div></div>
+    <div>Change</div>
+
+    <!-- Values -->
+    <div id="cashGivenBox" style="border:1px solid #ccc; padding:6px;">$0</div>
+    <div>-</div>
+    <div id="totalBox" style="border:1px solid #ccc; padding:6px;">$0</div>
+    <div>=</div>
+    <div id="changeBox" style="border:1px solid #ccc; padding:6px;">$0</div>
+  </div>
+
+    <!-- Buttons -->
+  <div id="cash-buttons" style="margin-top: 12px;">
+    <button onclick="setCash(50)">50</button>
+    <button onclick="setCash(40)">40</button>
+    <button onclick="setCash(30)">30</button>
+    <button onclick="setCash(20)">20</button>
+    <button onclick="setCash(10)">10</button>
+    <button onclick="setCash(5)">5</button>
+    <input type="number" id="customCash" placeholder="Custom"
+           oninput="setCash(this.value)" style="width:80px; margin-top:8px;" />
+  </div>
+
+</div>
+
+<script>
+    let cashGiven = 0;
+    let totalCost = 0;
+
+    function setCash(amount) {
+    cashGiven = parseFloat(amount) || 0;
+    document.getElementById("cashGivenBox").textContent = "$" + cashGiven;
+    updateChange();
+    }
+
+    function updateTotal(newTotal) {
+      totalCost = newTotal;
+      document.getElementById("totalBox", window.parent.document).textContent = "$" + totalCost;
+      updateChange();
+    }
+
+    function updateChange() {
+      const change = cashGiven - totalCost;
+      document.getElementById("changeBox").textContent =
+        "$" + change;
+if (change < 0) {
+  document.getElementById("changeBox").style.backgroundColor = "red";
+} else if (change > 0) {
+  document.getElementById("changeBox").style.backgroundColor = "#00ff00";
+} else{
+     document.getElementById("changeBox").style.backgroundColor = "white"; // reset
+}
+    }
+
+    // expose to parent page
+    window.updateCashTotal = updateTotal;
+</script>
+
+<style>
+  body {
+    font-family: monospace;
+  }
+  .cash-calculator {
+    font-family: monospace !important;
+  }
+</style>

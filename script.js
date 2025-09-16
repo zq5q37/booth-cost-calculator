@@ -238,6 +238,7 @@ function updateTotal() {
   total += printTotal;
 
   document.getElementById("total").textContent = `Total: $${total}`;
+  document.querySelector("iframe").contentWindow.updateCashTotal(total);
 }
 
 document.getElementById("reset").addEventListener("click", () => {

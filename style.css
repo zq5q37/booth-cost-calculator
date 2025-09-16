@@ -205,6 +205,17 @@ button {
   text-align: left;
 }
 
+.cash-calculator{
+    max-width: 600px;
+  /* margin-top: 16px; */
+  /* font-family: monospace !important; */
+  border: 2px solid #ccc;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: #fafafa;
+  white-space: pre-line; /* preserve line breaks */
+}
+
 /* Mobile-specific overrides */
 @media (max-width: 600px) {
   .card {
