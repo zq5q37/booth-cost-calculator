@@ -18,7 +18,7 @@ export const defaultItems = [
     hasSpecial: true,
   },
   // { name: "Special Keychain", price: 2, type: "special_keychain", color: "#FFA07A" },
-  { name: "Stand", price: 20, type: "stand", color: "#90EE90" },
+  { name: "Stand", price: 15, type: "stand", color: "#90EE90" },
 ];
 
 export const defaultDeals = {
@@ -31,7 +31,7 @@ export const defaultDeals = {
   },
   stand: {
     type: "Bundle2",
-    single: 20,
-    pair: 36,
+    single: 15,
+    pair: 25,
   },
 };

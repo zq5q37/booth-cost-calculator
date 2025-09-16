@@ -200,7 +200,7 @@ function updateBreakdown(printItems) {
   });
 
   document.getElementById("calculation-breakdown").innerHTML =
-    breakdown.join("<br>");
+    breakdown.length>0? breakdown.join("<br>"): "Deals calculation";
 
   return printTotal;
 }
