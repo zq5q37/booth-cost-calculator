@@ -255,15 +255,15 @@
     "sizes": ["A7"]
   },
 
-    {
+  {
     "image": "./keychains_webp/ZZZ/zzzscratchcard.webp",
     "sizes": ["Scratch"]
   },
-      {
+  {
     "image": "./keychains_webp/BA/bascratchcard.webp",
     "sizes": ["Scratch"]
   },
-      {
+  {
     "image": "./keychains_webp/HSR/hsrscratchcard.webp",
     "sizes": ["Scratch"]
   },
@@ -472,20 +472,122 @@
     "image": "./keychains_webp/BA/kokona.webp",
     "sizes": ["KeyC"]
   },
-    {
+  {
     "image": "./images_webp/standees/yuuka.avif",
     "sizes": ["Stand"]
   },
-      {
+  {
     "image": "./images_webp/standees/mari.avif",
     "sizes": ["Stand"]
   },
-      {
+  {
     "image": "./images_webp/standees/miyu_swimsuit.avif",
     "sizes": ["Stand"]
   },
-      {
+  {
     "image": "./images_webp/standees/momoi_midori.avif",
     "sizes": ["Stand"]
+  },
+  {
+    "image": "images_webp/stickers/Aru.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/Fuuka.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/Koharu.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/kissing.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/Kisaki dodecahedron.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/Kisaki strip.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/Kisaki_ball.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/Kisaki_cube.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/absolute cinema.webp",
+    "sizes": ["Sticker"]
+  },
+
+  {
+    "image": "images_webp/stickers/bellebooba.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/corin.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/Ellen haj.webp",
+    "sizes": ["Sticker"]
+  },
+
+  {
+    "image": "images_webp/stickers/miyabi.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/my neighbor eous.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/nicolestonks.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/nyan cat.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/postage_stamp_1.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/postage_stamp_2.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/postage_stamp_3.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/postage_stamp_4.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/postage_stamp_5.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/postage_stamp_6.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/postage_stamp_7.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/postage_stamp_8.webp",
+    "sizes": ["Sticker"]
+  },
+  {
+    "image": "images_webp/stickers/failume_stamps.webp",
+    "sizes": ["Sticker"]
   }
 ]

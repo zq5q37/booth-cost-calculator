@@ -1,296 +1,152 @@
 [
   {
-    "image": "./keychains_webp/BA/aris.webp",
+    "image": "images_webp\\stickers\\absolute cinema.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/arona.webp",
+    "image": "images_webp\\stickers\\Aru.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/ayane.webp",
+    "image": "images_webp\\stickers\\bellebooba.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/hina.webp",
+    "image": "images_webp\\stickers\\corin.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/hoshino.webp",
+    "image": "images_webp\\stickers\\Ellen haj.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/ibuki.webp",
+    "image": "images_webp\\stickers\\failume_stamps.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/iori.webp",
+    "image": "images_webp\\stickers\\Fuuka.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/iroha.webp",
+    "image": "images_webp\\stickers\\Kisaki dodecahedron.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/kisaki.webp",
+    "image": "images_webp\\stickers\\Kisaki strip.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/kokona.webp",
+    "image": "images_webp\\stickers\\Kisaki_ball.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/midori.webp",
+    "image": "images_webp\\stickers\\Kisaki_cube.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/miyako.webp",
+    "image": "images_webp\\stickers\\kissing.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/miyu.webp",
+    "image": "images_webp\\stickers\\Koharu.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/momoi.webp",
+    "image": "images_webp\\stickers\\miyabi.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/nonomi.webp",
+    "image": "images_webp\\stickers\\my neighbor eous.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/plana.webp",
+    "image": "images_webp\\stickers\\nicolestonks.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/saki.webp",
+    "image": "images_webp\\stickers\\nyan cat.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/serika.webp",
+    "image": "images_webp\\stickers\\postage_stamp_1.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/shiroko.webp",
+    "image": "images_webp\\stickers\\postage_stamp_2.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/shun.webp",
+    "image": "images_webp\\stickers\\postage_stamp_3.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/BA/yuzu.webp",
+    "image": "images_webp\\stickers\\postage_stamp_4.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/HSR/castorice.avif",
+    "image": "images_webp\\stickers\\postage_stamp_5.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/HSR/cerydra.avif",
+    "image": "images_webp\\stickers\\postage_stamp_6.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/HSR/cypher.avif",
+    "image": "images_webp\\stickers\\postage_stamp_7.webp",
     "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   },
   {
-    "image": "./keychains_webp/HSR/firefly.avif",
+    "image": "images_webp/stickers/postage_stamp_8.webp",
     "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/HSR/himeko.avif",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/HSR/hyacine.avif",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/HSR/hysilens.avif",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/HSR/march.avif",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/HSR/robin.avif",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/HSR/sparkle.avif",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/HSR/tribbie.avif",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/HSR/wolfie.avif",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/ZZZ/alice.webp",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/ZZZ/anby.webp",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/ZZZ/belle_swimsuit.webp",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/ZZZ/ellen.avif",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/ZZZ/jufufu.webp",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/ZZZ/miyabi.avif",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/ZZZ/nekomata.webp",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/ZZZ/nicole.avif",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/ZZZ/piper.avif",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/ZZZ/seed.webp",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/ZZZ/sleepy_belle.avif",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/ZZZ/trigger.avif",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/ZZZ/vivian.webp",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/ZZZ/yixuan.webp",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/ZZZ/yuzuha.webp",
-    "sizes": [
-      "KeyC"
-    ]
-  },
-  {
-    "image": "./keychains_webp/ZZZ/zhuyuan.avif",
-    "sizes": [
-      "KeyC"
+      "Sticker"
     ]
   }
 ]
