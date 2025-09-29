@@ -203,7 +203,7 @@ cartDiv.innerHTML = cart
       <div>
         ${c.id} - ${c.name} [${c.size}] $${c.price}
       </div>
-      <button onclick="removeFromCart(${idx})" style="width:30px; height:30px;margin-left:auto;">x</button>
+      <button onclick="removeFromCart(${idx})" style="width:30px; height:30px; margin-left:auto; font-size:25px;">-</button>
     </div>
   `)
   .join("");
