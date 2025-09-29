@@ -122,3 +122,4 @@ window.removeFromCart = function(index) {
   cart.splice(index, 1);
   renderCart();
 };
+//test
