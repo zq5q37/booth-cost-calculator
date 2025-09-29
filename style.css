@@ -129,3 +129,8 @@ button, input, select, textarea {
   overflow-y: auto;
   box-shadow: -2px 0 6px rgba(0, 0, 0, 0.2);
 }
+
+.total{
+  padding-top: 10px;
+  font-size: 24px;
+}

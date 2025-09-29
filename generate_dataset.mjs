@@ -29,7 +29,7 @@ fs.readdirSync(baseDir).forEach(fandom => {
   const folderPath = path.join(baseDir, fandom);
   if (fs.statSync(folderPath).isDirectory()) {
     fs.readdirSync(folderPath).forEach(file => {
-      if (/\.(jpg|jpeg|png|webp)$/i.test(file)) {
+      if (/\.(jpg|jpeg|png|webp|avif)$/i.test(file)) {
         dataset.push({
           image: `${baseDir}/${fandom}/${file}`,
           sizes: getSizes(file)

@@ -1,5 +1,3 @@
-import {defaultDeals } from "./data.js";
-
 const sizeConfig = {
   A7: { price: "$4", color: "#ff6fb2" },
   A5: { price: "$8", color: "#52c8cc" },
@@ -10,25 +8,43 @@ const sizeConfig = {
 };
 
 function categorizeImages(data) {
-  const categories = { front: [], back: [], insideLeft: [], insideRight: [], keychains: [] };
+  const categories = { front: [], back: [], insideLeft: [], insideRight: [], zzzkeychains: [],  bakeychains: [],  hsrkeychains: []};
   let baCounter = 1,
     zzzCounter = 1,
     genCounter = 1,
     hsrCounter = 1,
     miscCounter = 1,
-    keychainsCounter = 1;
+    zzzkeychainsCounter = 1,
+    bakeychainsCounter = 1,
+    hsrkeychainsCounter = 1;
+
 
   data.forEach((item) => {
     const imagePath = item.image.toLowerCase();
     const imageName = item.image.split("/").pop().split(".")[0];
 
-    if (imagePath.includes("/keychains_webp/")) {
-      categories.keychains.push({
+    if (imagePath.includes("/keychains_webp/zzz")) {
+      categories.zzzkeychains.push({
         ...item,
         name: imageName,
-        id: `K${keychainsCounter++}`,
+        id: `KZ${zzzkeychainsCounter++}`,
       });
     }
+    else if (imagePath.includes("/keychains_webp/ba")) {
+      categories.bakeychains.push({
+        ...item,
+        name: imageName,
+        id: `KB${bakeychainsCounter++}`,
+      });
+    }
+    else if (imagePath.includes("/keychains_webp/hsr")) {
+      categories.hsrkeychains.push({
+        ...item,
+        name: imageName,
+        id: `KH${hsrkeychainsCounter++}`,
+      });
+    }
+
     else if (imagePath.includes("/ba/")) {
       categories.back.push({ ...item, name: imageName, id: `B${baCounter++}` });
     } else if (imagePath.includes("/zzz/")) {
@@ -160,12 +176,12 @@ function renderCart() {
   }
 cartDiv.innerHTML = cart
   .map((c, idx) => `
-    <div class="cart-item" style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-      <img src="${c.image}" alt="${c.name}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;">
+    <div class="cart-item" style="display:flex; align-items:center; gap:8px; margin-bottom:8px; font-size:18px;">
+      <img src="${c.image}" alt="${c.name}" style="width:60px; height:60px; object-fit:cover; border-radius:4px;">
       <div>
         ${c.id} - ${c.name} [${c.size}] $${c.price}
       </div>
-      <button onclick="removeFromCart(${idx})" style="margin-left:auto;">x</button>
+      <button onclick="removeFromCart(${idx})" style="width:30px; height:30px;margin-left:auto;">x</button>
     </div>
   `)
   .join("");
@@ -196,28 +212,6 @@ function updateCartTotal() {
     if ((i + 1) % 2 !== 0){total += 8}  else {total+=7};
   });
 
-//   const others = cart.filter((c) => c.type !== "print");
-//   const grouped = {};
-
-//   others.forEach((item) => {
-//     if (!grouped[item.name]) grouped[item.name] = [];
-//     grouped[item.name].push(item);
-//   });
-
-//   console.log("grouped: ", grouped)
-
-//   for (const name in grouped) {
-//     const itemsArray = grouped[name];
-//     const count = itemsArray.length;
-//     const type = itemsArray[0].size;
-//     const deal = defaultDeals[type];
-
-//     if (deal?.type === "Bundle2") {
-//       const pairs = Math.floor(count / 2);
-//       const singles = count % 2;
-//       total += pairs * deal.pair + singles * deal.single;
-//     }
-//   }
 
   document.getElementById("cart-total").textContent = `Total: $${total}`;
 }

@@ -1,5 +1,203 @@
 [
   {
+    "image": "./keychains_webp/BA/aris.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/arona.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/ayane.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/hina.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/hoshino.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/ibuki.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/iori.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/iroha.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/kisaki.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/kokona.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/midori.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/miyako.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/miyu.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/momoi.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/nonomi.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/plana.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/saki.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/serika.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/shiroko.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/shun.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/BA/yuzu.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/HSR/castorice.avif",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/HSR/cerydra.avif",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/HSR/cypher.avif",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/HSR/firefly.avif",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/HSR/himeko.avif",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/HSR/hyacine.avif",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/HSR/hysilens.avif",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/HSR/march.avif",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/HSR/robin.avif",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/HSR/sparkle.avif",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/HSR/tribbie.avif",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/HSR/wolfie.avif",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
     "image": "./keychains_webp/ZZZ/alice.webp",
     "sizes": [
       "KeyC"
@@ -18,13 +216,55 @@
     ]
   },
   {
+    "image": "./keychains_webp/ZZZ/ellen.avif",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
     "image": "./keychains_webp/ZZZ/jufufu.webp",
     "sizes": [
       "KeyC"
     ]
   },
   {
+    "image": "./keychains_webp/ZZZ/miyabi.avif",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
     "image": "./keychains_webp/ZZZ/nekomata.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/ZZZ/nicole.avif",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/ZZZ/piper.avif",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/ZZZ/seed.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/ZZZ/sleepy_belle.avif",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/ZZZ/trigger.avif",
     "sizes": [
       "KeyC"
     ]
@@ -43,6 +283,12 @@
   },
   {
     "image": "./keychains_webp/ZZZ/yuzuha.webp",
+    "sizes": [
+      "KeyC"
+    ]
+  },
+  {
+    "image": "./keychains_webp/ZZZ/zhuyuan.avif",
     "sizes": [
       "KeyC"
     ]
