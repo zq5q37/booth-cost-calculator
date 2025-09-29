@@ -1,398 +1,117 @@
-// main.js
 import { defaultItems, defaultDeals } from "./data.js";
 
-// import localforage from "localforage";
-
-// let items = JSON.parse(localStorage.getItem("customItems")) || [
-//   ...defaultItems,
-// ];
-// const items = (await localforage.getItem("customItems")) || defaultItems;
 const items = defaultItems;
 const deals = defaultDeals;
+const state = {};
 
-window.addEventListener("DOMContentLoaded", async () => {
-  await refreshItems();
+// const row1 = document.getElementById("cart");
+const breakdownEl = document.getElementById("calculation-breakdown");
+const totalEl = document.getElementById("total");
+// const cartEl = document.getElementById("shopping-cart-items"); // optional div inside your cart
+
+// // Initialize state
+// items.forEach(item => {
+//   state[item.name] = 0;
+//   if (item.hasSpecial) state[`${item.name}_special`] = 0;
+// });
+
+window.addEventListener("DOMContentLoaded", () => {
   updateTotal();
 });
 
-const state = {};
-
-const row1 = document.getElementById("row1");
-const row2 = document.getElementById("row2");
-const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-
-async function refreshItems() {
-  const items = (await localforage.getItem("customItems")) || defaultItems;
-  const deals = (await localforage.getItem("customItemsDeals")) || defaultDeals;
-  // Clear rows before appending new cards (to avoid duplicates)
-  row1.innerHTML = "";
-  row2.innerHTML = "";
-
-  items.forEach((item, index) => {
-    state[item.name] = 0;
-    if (item.hasSpecial) {
-      state[`${item.name}_special`] = 0;
-    }
-
-    const card = document.createElement("div");
-    card.className = "card";
-    card.style.backgroundColor = item.color;
-
-    card.innerHTML = `
-        <span>${item.name}</span>
-        <div class="controls">
-          <button onclick="changeQty('${item.name}', -1)">-</button>
-          <div class="count" id="count-${item.name}">0</div>
-          <button onclick="changeQty('${item.name}', 1)">+</button>
-        </div>
-        ${
-          item.hasSpecial
-            ? `
-        <div class="controls">
-          <button onclick="changeQty('${item.name}_special', -1)">-</button>
-          <div class="count" id="count-${item.name}_special">0</div>
-          <button onclick="changeQty('${item.name}_special', 1)">+</button>
-        </div>
-        <div style="font-size: 12px;">Special (+$2)</div>
-      `
-            : ""
-        }
-      `;
-
-    if (!isMobile) {
-      // On desktop, split cards: first 4 to row1, rest to row2
-      (index < 4 ? row1 : row2).appendChild(card);
-    } else {
-      // On mobile, just append all to row1 (or your preferred logic)
-      row1.appendChild(card);
-    }
-  });
-}
-
-// const items = [
-//   { name: "A3", price: 20, type: "print", color: "#FFCC6F" },
-//   { name: "A4", price: 12, type: "print", color: "#CF6FFF" },
-//   { name: "A5", price: 8, type: "print", color: "#6FFAFF" },
-//   { name: "Mini", price: 4, type: "print", color: "#FF6FB2" },
-//   { name: "Sticker", price: 2, type: "print", color: "#FF9999" },
-//   {
-//     name: "Keychain",
-//     price: 8,
-//     type: "keychain",
-//     color: "#FFA07A",
-//     hasSpecial: true,
-//   },
-//   // { name: "Special Keychain", price: 2, type: "special_keychain", color: "#FFA07A" },
-//   { name: "Stand", price: 20, type: "stand", color: "#90EE90" },
-// ];
-
-function changeQty(name, delta) {
-  if (typeof state[name] !== "number") state[name] = 0;
-
+// ------------------ Quantity logic ------------------
+window.changeQty = function(name, delta) {
+  if (!state[name]) state[name] = 0;
   state[name] = Math.max(0, state[name] + delta);
 
   const base = name.split("_")[0];
 
+  // Limit special count to base count
   if (name.includes("_special")) {
-    if (typeof state[base] !== "number") state[base] = 0;
-    if (state[name] > state[base]) {
-      state[name] = state[base];
-    }
+    state[name] = Math.min(state[name], state[base]);
   } else {
-    const item = items.find((i) => i.name === name);
-    if (item && item.hasSpecial === true) {
-      const specialName = `${name}_special`;
-      if (typeof state[specialName] !== "number") state[specialName] = 0;
-      if (state[specialName] > state[name]) {
-        state[specialName] = state[name];
-      }
+    if (items.find(i => i.name === base)?.hasSpecial) {
+      const specialName = `${base}_special`;
+      if (state[specialName] > state[base]) state[specialName] = state[base];
     }
   }
 
-  if (document.getElementById(`count-${name}`))
-    document.getElementById(`count-${name}`).textContent = state[name];
+  // Update DOM
+  document.getElementById(`count-${name}`).textContent = state[name];
   if (document.getElementById(`count-${base}_special`))
-    document.getElementById(`count-${base}_special`).textContent =
-      state[`${base}_special`];
+    document.getElementById(`count-${base}_special`).textContent = state[`${base}_special`];
 
   updateTotal();
-}
+};
 
-function updateBreakdown(printItems) {
-  let breakdown = [];
-  let printTotal = 0;
-
-  if (printItems.length) {
-    let line = `[Prints Buy-2-Free-1]: `;
-    let groupTotal = 0;
-
-    printItems.sort((a, b) => b - a);
-    let labels = [];
-
-    let tempIndex = 0;
-    items.forEach(({ name, type, price }) => {
-      if (type === "print" && state[name] > 0) {
-        for (let i = 0; i < state[name]; i++) {
-          labels.push({ price, label: name });
-        }
-      }
-    });
-
-    for (let i = 0; i < printItems.length; i++) {
-      const isFree = (i + 1) % 3 === 0;
-      const price = printItems[i];
-      const label = labels[i]?.label || "";
-      const text = `$${price} (${label})`;
-
-      if (isFree) {
-        line += `<s>${text}</s>, `;
-      } else {
-        groupTotal += price;
-        line += `${text}, `;
-      }
-    }
-
-    line = line.replace(/, $/, ` = $${groupTotal}`);
-    printTotal = groupTotal;
-    breakdown.push(line);
-  }
-
-  let keychainTotal = 0;
-  let standTotal = 0;
-
-  items.forEach(({ name, type, hasSpecial }) => {
-    const count = state[name];
-    if (count === 0 || type === "print") return;
-
-    const deal = deals[type];
-    if (deal?.type === "Bundle2") {
-      const { single, pair, special } = deal;
-      const pairs = Math.floor(count / 2);
-      const singles = count % 2;
-
-      let group = [];
-      let groupSum = 0;
-
-      if (pairs > 0) {
-        group.push(`(${pairs} pair x $${pair})`);
-        groupSum += pairs * pair;
-      }
-
-      if (singles > 0) {
-        group.push(`(${singles} single x $${single})`);
-        groupSum += singles * single;
-      }
-
-      if (hasSpecial && special) {
-        const specialCount = Math.min(state[`${name}_special`] || 0, count);
-        if (specialCount > 0) {
-          group.push(`(${specialCount} special +$${special})`);
-          groupSum += specialCount * special;
-        }
-      }
-
-      const line = `[${name}]: ${group.join(" + ")} = $${groupSum}`;
-      breakdown.push(line);
-
-      if (type === "keychain") keychainTotal = groupSum;
-      if (type === "stand") standTotal = groupSum;
-    }
-  });
-
-  document.getElementById("calculation-breakdown").innerHTML =
-    breakdown.length>0? breakdown.join("<br>"): "Deals calculation";
-
-  return printTotal;
-}
-
+// ------------------ Total and breakdown ------------------
 function updateTotal() {
   let total = 0;
   const printItems = [];
 
   items.forEach(({ name, type, price, hasSpecial }) => {
     const count = state[name];
-    if (count === 0) return;
+    if (!count) return;
 
     if (type === "print") {
-      for (let i = 0; i < count; i++) printItems.push(price);
+      for (let i=0;i<count;i++) printItems.push(price);
     } else if (type === "keychain" || type === "stand") {
       const deal = deals[type];
       if (deal?.type === "Bundle2") {
-        const { single, pair, special } = deal;
-
-        const pairs = Math.floor(count / 2);
+        const pairs = Math.floor(count/2);
         const singles = count % 2;
-        total += pairs * pair + singles * single;
+        total += pairs*deal.pair + singles*deal.single;
 
-        if (hasSpecial && special) {
-          const specialCount = Math.min(state[`${name}_special`] || 0, count);
-          total += specialCount * special;
+        if (hasSpecial && deal.special) {
+          const specialCount = Math.min(state[`${name}_special`]||0, count);
+          total += specialCount*deal.special;
         }
       }
     }
   });
 
-  // Assume `updateBreakdown` returns total for prints (with discounts)
-  printItems.sort((a, b) => b - a);
-  const printTotal = updateBreakdown(printItems);
-  total += printTotal;
+  printItems.sort((a,b)=>b-a);
+  total += calculatePrintDeals(printItems);
 
-  document.getElementById("total").textContent = `Total: $${total}`;
-  document.querySelector("iframe").contentWindow.updateCashTotal(total);
+  totalEl.textContent = `Total: $${total}`;
+
+  renderCartItems(); // optional: show item counts in cart
 }
 
+// ------------------ Prints Buy2Free1 ------------------
+function calculatePrintDeals(printItems) {
+  let sum = 0;
+  let line = "[Prints Buy-2-Free-1]: ";
+  printItems.forEach((price,i) => {
+    const isFree = (i+1)%3===0;
+    line += isFree ? `<s>$${price}</s>, ` : `$${price}, `;
+    if(!isFree) sum += price;
+  });
+  breakdownEl.innerHTML = line.replace(/, $/,' = $'+sum);
+  return sum;
+}
+
+// ------------------ Render cart items (optional) ------------------
+function renderCartItems() {
+  if(!cartEl) return;
+  cartEl.innerHTML = "";
+  items.forEach(({name}) => {
+    const count = state[name];
+    if(count>0){
+      const div = document.createElement("div");
+      div.textContent = `${name}: ${count}`;
+      cartEl.appendChild(div);
+    }
+  });
+}
+
+// ------------------ Reset ------------------
 document.getElementById("reset").addEventListener("click", () => {
-  resetAll();
-});
-
-function resetAll() {
-  for (const name in state) {
-    state[name] = 0;
-    const countEl = document.getElementById(`count-${name}`);
-    if (countEl) countEl.textContent = "0";
-
-    if (document.getElementById(`count-${name}_special`)) {
-      document.getElementById(`count-${name}_special`).textContent = "0";
-    }
-  }
+  items.forEach(i => {
+    state[i.name]=0;
+    if(i.hasSpecial) state[`${i.name}_special`] = 0;
+    if(document.getElementById(`count-${i.name}`)) document.getElementById(`count-${i.name}`).textContent = "0";
+    if(i.hasSpecial && document.getElementById(`count-${i.name}_special`)) document.getElementById(`count-${i.name}_special`).textContent="0";
+  });
   updateTotal();
-}
-
-let orders = [];
-const savedOrders = localStorage.getItem("orders");
-if (savedOrders) {
-  orders = JSON.parse(savedOrders);
-  renderOrders(); // ⬅️ Restore table
-}
-
-document.getElementById("save").addEventListener("click", () => {
-  const currentOrder = {};
-
-  let hasItems = false;
-  let totalItems = 0;
-
-  for (const name in state) {
-    currentOrder[name] = state[name];
-    totalItems += state[name];
-  }
-
-  if (totalItems > 0) {
-    hasItems = true;
-  }
-
-  if (!hasItems) return; // Don't save empty orders
-
-  const totalText = document.getElementById("total").textContent;
-  currentOrder.total = parseInt(totalText.replace(/\D/g, ""), 10);
-
-  // ✅ Add timestamp here
-  currentOrder.timestamp = new Date().toLocaleString();
-
-  orders.push(currentOrder);
-  localStorage.setItem("orders", JSON.stringify(orders)); // ⬅️ Save to localStorage
-  renderOrders();
-
-  document.getElementById("reset").click();
 });
-
-function renderOrders() {
-  const orderList = document.getElementById("order-list");
-  orderList.innerHTML = "";
-
-  if (orders.length === 0) {
-    orderList.textContent = "No saved orders yet.";
-    return;
-  }
-
-  const allKeys = new Set();
-  orders.forEach((order) => Object.keys(order).forEach((k) => allKeys.add(k)));
-  allKeys.delete("total");
-  allKeys.delete("timestamp"); // We'll add it manually to control position
-  const itemKeys = Array.from(allKeys);
-
-  const table = document.createElement("table");
-  table.style.borderCollapse = "collapse";
-  table.style.width = "100%";
-  table.style.maxWidth = "600px";
-  table.style.marginTop = "16px";
-  table.style.fontSize = "16px";
-
-  // ✅ Include "Time" in the header
-  const headerRow = document.createElement("tr");
-  ["Order", ...itemKeys, "Total", "Time"].forEach((text) => {
-    const th = document.createElement("th");
-    th.textContent = text;
-    th.style.border = "1px solid #ccc";
-    th.style.padding = "8px";
-    th.style.backgroundColor = "#f0f0f0";
-    headerRow.appendChild(th);
-  });
-  table.appendChild(headerRow);
-
-  // ✅ Add timestamp to each row
-  orders.forEach((order, idx) => {
-    const row = document.createElement("tr");
-
-    const orderCell = document.createElement("td");
-    orderCell.textContent = idx + 1;
-    orderCell.style.border = "1px solid #ccc";
-    orderCell.style.padding = "8px";
-    row.appendChild(orderCell);
-
-    itemKeys.forEach((key) => {
-      const td = document.createElement("td");
-      td.textContent = order[key] || "0";
-      td.style.border = "1px solid #ccc";
-      td.style.padding = "8px";
-      row.appendChild(td);
-    });
-
-    const totalCell = document.createElement("td");
-    totalCell.textContent = order.total ? `$${order.total}` : "$0";
-    totalCell.style.border = "1px solid #ccc";
-    totalCell.style.padding = "8px";
-    row.appendChild(totalCell);
-
-    const timeCell = document.createElement("td");
-    timeCell.textContent = order.timestamp || "";
-    timeCell.style.border = "1px solid #ccc";
-    timeCell.style.padding = "8px";
-    row.appendChild(timeCell);
-
-    table.appendChild(row);
-  });
-
-  orderList.appendChild(table);
-}
-
-document.getElementById("download").addEventListener("click", () => {
-  if (orders.length === 0) return alert("No orders to download!");
-
-  const rows = [];
-
-  orders.forEach((order, idx) => {
-    const row = { Order: idx + 1 };
-    for (const key in order) {
-      row[key] = order[key];
-    }
-    rows.push(row);
-  });
-
-  const worksheet = XLSX.utils.json_to_sheet(rows);
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Orders");
-
-  XLSX.writeFile(workbook, "Day_x_orders.xlsx");
-});
-
-document.getElementById("clear-orders").addEventListener("click", () => {
-  localStorage.removeItem("orders");
-  orders = [];
-  renderOrders();
-});
-
-// });
-window.changeQty = changeQty; // 👈 make globally accessible
-window.updateTotal = updateTotal; // 👈 make globally accessible
-window.refreshItems = refreshItems; // 👈 make globally accessible
-window.resetAll = resetAll; // 👈 make globally accessible
