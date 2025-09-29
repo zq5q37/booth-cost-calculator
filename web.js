@@ -242,6 +242,7 @@ function updateCartTotal() {
 
 
   document.getElementById("cart-total").textContent = `Total: $${total}`;
+  updateCashTotal(total);
 }
 
 // Prevent pinch-to-zoom
