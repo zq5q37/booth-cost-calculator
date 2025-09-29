@@ -6,70 +6,32 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-
-    <title>Booth Calculator</title>
+    <title>Miyu Shop POS</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js"></script>
   </head>
   <body>
-    <h1 class="header">Miyu Shop Calculator</h1>
-    <!-- <button onclick="openSettings()" class="reset-button">Settings</button> -->
-    <!-- <div id="settings-panel" style="display: none"> -->
-      <!-- Inputs for item settings will be dynamically added -->
-    <!-- </div> -->
+    <div class="vertical-split">
+      <div class="catalogue-left">
+        <div class="tab-bar">
+          <button class="tab-btn" data-tab="front">ZZZ</button>
+          <button class="tab-btn" data-tab="back">BA</button>
+          <button class="tab-btn" data-tab="insideLeft">Genshin/HSR</button>
+          <button class="tab-btn" data-tab="insideRight">Misc</button>
+        </div>
 
-    <div class="container">
-      <div class="row" id="row1"></div>
-      <div class="row" id="row2"></div>
+        <!-- Tab content -->
+        <div id="tab-content"></div>
+      </div>
+
+      <div class="shopping-cart-right">
+        <h2>Shopping Cart</h2>
+        <div id="cart"></div>
+        <div class="total" id="cart-total">Total: $0</div>
+      </div>
     </div>
 
-    <div
-      id="calculation-breakdown"
-      style="max-width: 600px; margin-top: 16px; font-family: monospace"
-    ></div>
+    <!-- <iframe src="cash-calculator.html" class="cash-calculator"></iframe> -->
 
-    <div class="total" id="total">Total: $0</div>
-
-    <iframe src="cash-calculator.html" class="cash-calculator"></iframe>
-
-    <div>
-      <button
-        id="save"
-        class="reset-button"
-        style="background-color: rgb(61, 171, 174)"
-      >
-        Save Order
-      </button>
-      <button
-        id="reset"
-        class="reset-button"
-        style="background-color: rgb(191, 90, 90)"
-      >
-        Reset
-      </button>
-    </div>
-
-    <div id="order-list" style="margin-bottom: 32px; width: 90%"></div>
-
-    <button
-      id="download"
-      class="reset-button"
-      style="background-color: rgb(82, 136, 113)"
-    >
-      Download Orders
-    </button>
-
-    <button
-      id="clear-orders"
-      class="reset-button"
-      style="background-color: rgb(178, 51, 51)"
-    >
-      Clear Orders
-    </button>
-
-    <script type="module" src="script.js"></script>
-    <script type="module" src="data.js"></script>
-    <script type="module" src="settings.js"></script>
+    <script type="module" src="web.js"></script>
   </body>
 </html>
