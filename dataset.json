@@ -255,6 +255,18 @@
     "sizes": ["A7"]
   },
 
+    {
+    "image": "./keychains_webp/ZZZ/zzzscratchcard.webp",
+    "sizes": ["Scratch"]
+  },
+      {
+    "image": "./keychains_webp/BA/bascratchcard.webp",
+    "sizes": ["Scratch"]
+  },
+      {
+    "image": "./keychains_webp/HSR/hsrscratchcard.webp",
+    "sizes": ["Scratch"]
+  },
   {
     "image": "./keychains_webp/ZZZ/anby.webp",
     "sizes": ["KeyC"]
@@ -459,5 +471,21 @@
   {
     "image": "./keychains_webp/BA/kokona.webp",
     "sizes": ["KeyC"]
+  },
+    {
+    "image": "./images_webp/standees/yuuka.avif",
+    "sizes": ["Stand"]
+  },
+      {
+    "image": "./images_webp/standees/mari.avif",
+    "sizes": ["Stand"]
+  },
+      {
+    "image": "./images_webp/standees/miyu_swimsuit.avif",
+    "sizes": ["Stand"]
+  },
+      {
+    "image": "./images_webp/standees/momoi_midori.avif",
+    "sizes": ["Stand"]
   }
 ]

@@ -5,10 +5,12 @@ const sizeConfig = {
   A3: { price: "$20", color: "#ffcc6f" },
   C: { price: "$6", color: "#91C768" },
   KeyC: { price: "$8", color: "#d59351ff" },
+  Scratch: {price: "$0", color: "#000"},
+  Stand: {price: "$15", color: "#4d5cffff"},
 };
 
 function categorizeImages(data) {
-  const categories = { front: [], back: [], insideLeft: [], insideRight: [], zzzkeychains: [],  bakeychains: [],  hsrkeychains: []};
+  const categories = { front: [], back: [], insideLeft: [], insideRight: [], zzzkeychains: [],  bakeychains: [],  hsrkeychains: [], stands:[]};
   let baCounter = 1,
     zzzCounter = 1,
     genCounter = 1,
@@ -16,7 +18,8 @@ function categorizeImages(data) {
     miscCounter = 1,
     zzzkeychainsCounter = 1,
     bakeychainsCounter = 1,
-    hsrkeychainsCounter = 1;
+    hsrkeychainsCounter = 1,
+    standsCounter=1;
 
 
   data.forEach((item) => {
@@ -42,6 +45,13 @@ function categorizeImages(data) {
         ...item,
         name: imageName,
         id: `KH${hsrkeychainsCounter++}`,
+      });
+    }
+    else if (imagePath.includes("/standees/")) {
+      categories.stands.push({
+        ...item,
+        name: imageName,
+        id: `S${standsCounter++}`,
       });
     }
 
@@ -210,6 +220,12 @@ function updateCartTotal() {
       keychains.forEach((p, i) => {
     // every 2nd keychain is $7
     if ((i + 1) % 2 !== 0){total += 8}  else {total+=7};
+  });
+
+      const stands = cart.filter((c) => c.size == "Stand");
+      stands.forEach((p, i) => {
+    // every 2nd stand is $10
+    if ((i + 1) % 2 !== 0){total += 15}  else {total+=10};
   });
 
 
