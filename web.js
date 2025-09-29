@@ -243,3 +243,19 @@ function updateCartTotal() {
 
   document.getElementById("cart-total").textContent = `Total: $${total}`;
 }
+
+// Prevent pinch-to-zoom
+document.addEventListener('touchmove', function (event) {
+  if (event.scale !== 1) event.preventDefault();
+}, { passive: false });
+
+// Prevent double-tap zoom
+let lastTouch = 0;
+document.addEventListener('touchend', function (event) {
+  const now = Date.now();
+  if (now - lastTouch <= 300) {
+    event.preventDefault();
+  }
+  lastTouch = now;
+}, { passive: false });
+
