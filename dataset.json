@@ -1,379 +1,257 @@
-  [
-    {
+[
+  {
     "image": "./images_jpeg/BA/Shupo.jpg",
-    "sizes": [
-      "A5", "A4", "A3"
-    ]
-  },{
+    "sizes": ["A5", "A4", "A3"]
+  },
+  {
     "image": "./images_jpeg/BA/Abydos.jpg",
-    "sizes": [
-      "A5"
-    ]
+    "sizes": ["A5"]
   },
 
   {
     "image": "./images_jpeg/BA/Arona.jpg",
-    "sizes": [
-      "A5", "A4"
-    ]
+    "sizes": ["A5", "A4"]
   },
   {
     "image": "./images_jpeg/BA/KoharuUi.jpg",
-    "sizes": [
-      "A5", "A4"
-    ]
+    "sizes": ["A5", "A4"]
   },
   {
     "image": "./images_jpeg/BA/Maki.jpg",
-    "sizes": [
-      "A5"
-    ]
+    "sizes": ["A5"]
   },
   {
     "image": "./images_jpeg/BA/Mika.jpg",
-    "sizes": [
-      "A5"
-    ]
-  },  {
+    "sizes": ["A5"]
+  },
+  {
     "image": "./images_jpeg/BA/TokiKoyuki.jpg",
-    "sizes": [
-      "A5"
-    ]
+    "sizes": ["A5"]
   },
   {
     "image": "./images_jpeg/BA/miyu2.jpg",
-    "sizes": [
-      "A5"
-    ]
+    "sizes": ["A5"]
   },
   {
     "image": "./images_jpeg/BA/miyuswim.jpg",
-    "sizes": [
-      "A5", "A4"
-    ]
+    "sizes": ["A5", "A4"]
   },
-    {
+  {
     "image": "./images_jpeg/BA/kisaki.jpg",
-    "sizes": [
-      "A5"
-    ]
+    "sizes": ["A5"]
   },
-    {
+  {
     "image": "./images_jpeg/BA/momi.jpg",
-    "sizes": [
-      "A5"
-    ]
+    "sizes": ["A5"]
   },
   {
     "image": "./images_jpeg/BA/ps68.jpg",
-    "sizes": [
-      "A7"
-    ]
+    "sizes": ["A7"]
   },
 
   {
     "image": "./images_jpeg/BA/SugarRush-AiriYoshi.jpg",
-    "sizes": [
-      "A7"
-    ]
+    "sizes": ["A7"]
   },
   {
     "image": "./images_jpeg/BA/SugarRush-Kazusa.jpg",
-    "sizes": [
-      "A7"
-    ]
+    "sizes": ["A7"]
   },
   {
     "image": "./images_jpeg/BA/SugarRush-Natsu.jpg",
-    "sizes": [
-      "A7"
-    ]
-  },  {
+    "sizes": ["A7"]
+  },
+  {
     "image": "./images_jpeg/BA/Abydos_mini.jpg",
-    "sizes": [
-      "A7"
-    ]
+    "sizes": ["A7"]
   },
   {
     "image": "./images_jpeg/Genshin/Furina.jpg",
-    "sizes": [
-      "A5", "A4", "A3"
-    ]
+    "sizes": ["A5", "A4", "A3"]
   },
   {
     "image": "./images_jpeg/Genshin/diona.jpg",
-    "sizes": [
-      "A5", "C"
-    ]
+    "sizes": ["C"]
   },
 
   {
     "image": "./images_jpeg/Genshin/ganqing.jpg",
-    "sizes": [
-      "A5", "C"
-    ]
+    "sizes": ["C"]
   },
   {
     "image": "./images_jpeg/Genshin/klee.jpg",
-    "sizes": [
-      "A5", "C"
-    ]
+    "sizes": ["C"]
   },
   {
     "image": "./images_jpeg/Genshin/nahida.jpg",
-    "sizes": [
-      "A5", "C"
-    ]
+    "sizes": ["C"]
   },
   {
     "image": "./images_jpeg/Genshin/sigewinne.jpg",
-    "sizes": [
-      "A7"
-    ]
+    "sizes": ["A7"]
   },
   {
-    "image": "./images_jpeg/Genshin/yoi.jpg",
-    "sizes": [
-      "A5", "C"
-    ]
+    "image": "./images_jpeg/Genshin/yoimiya.jpg",
+    "sizes": ["C"]
   },
   {
     "image": "./images_jpeg/HSR/Herta.jpg",
-    "sizes": [
-      "A5"
-    ]
+    "sizes": ["A5"]
   },
 
   {
     "image": "./images_jpeg/HSR/ruanmei.jpg",
-    "sizes": [
-      "A5"
-    ]
+    "sizes": ["A5"]
   },
   {
     "image": "./images_jpeg/HSR/SilverWolf.jpg",
-    "sizes": [
-      "A5"
-    ]
+    "sizes": ["A5"]
   },
   {
     "image": "./images_jpeg/HSR/sparkle.jpg",
-    "sizes": [
-      "A5"
-    ]
-  },  
-    {
+    "sizes": ["A5"]
+  },
+  {
     "image": "./images_jpeg/HSR/hyacine.jpg",
-    "sizes": [
-      "A5"
-    ]
-  },  
+    "sizes": ["A5"]
+  },
   {
     "image": "./images_jpeg/HSR/minecraft.jpg",
-    "sizes": [
-      "A5"
-    ]
+    "sizes": ["A5"]
   },
   {
     "image": "./images_jpeg/Misc/ChisaTaki.jpg",
-    "sizes": [
-      "A5"
-    ]
-  },  {
+    "sizes": ["A5"]
+  },
+  {
     "image": "./images_jpeg/Misc/MikuMcDonalds.jpg",
-    "sizes": [
-      "A5", "A4"
-    ]
+    "sizes": ["A5", "A4"]
   },
   {
     "image": "./images_jpeg/Misc/maomao.jpg",
-    "sizes": [
-      "A5"
-    ]
+    "sizes": ["A5"]
   },
-
 
   {
     "image": "./images_jpeg/Misc/kon.jpg",
-    "sizes": [
-      "A5"
-    ]
+    "sizes": ["A5"]
   },
-   {
+  {
     "image": "./images_jpeg/Misc/Yanami.jpg",
-    "sizes": [
-      "A5", "C"
-    ]
-  },   {
+    "sizes": ["C"]
+  },
+  {
     "image": "./images_jpeg/Misc/lemon.jpg",
-    "sizes": [
-      "A5", "C"
-    ]
-  },{
+    "sizes": ["C"]
+  },
+  {
     "image": "./images_jpeg/Misc/Komari.jpg",
-    "sizes": [
-      "A5", "C"
-    ]
+    "sizes": ["C"]
   },
 
   {
     "image": "./images_jpeg/Misc/kumirei.jpg",
-    "sizes": [
-      "A5"
-    ]
-  }, 
+    "sizes": ["A5"]
+  },
 
   {
     "image": "./images_jpeg/Misc/Prisma-Illya.jpg",
-    "sizes": [
-      "A5", "C"
-    ]
+    "sizes": ["C"]
   },
   {
     "image": "./images_jpeg/Misc/Prisma-Miyu.jpg",
-    "sizes": [
-      "A5", "C"
-    ]
-  },  {
+    "sizes": ["C"]
+  },
+  {
     "image": "./images_jpeg/Misc/Prisma-Chloe.jpg",
-    "sizes": [
-      "A5", "C"
-    ]
+    "sizes": ["C"]
   },
   {
     "image": "./images_jpeg/Misc/RailgunNOUI.jpg",
-    "sizes": [
-      "A5", "C"
-    ]
+    "sizes": ["C"]
   },
- {
+  {
     "image": "./images_jpeg/Misc/Farcille.jpg",
-    "sizes": [
-      "A4", "C"
-    ]
+    "sizes": ["C"]
   },
-    {
+  {
     "image": "./images_jpeg/ZZZ/YuzuAlice.jpg",
-    "sizes": [
-      "A5", "A4"
-    ]
+    "sizes": ["A5", "A4"]
   },
   {
     "image": "./images_jpeg/ZZZ/JuFufu.jpg",
-    "sizes": [
-      "A5", "A4"
-    ]
-  }, 
+    "sizes": ["A5", "A4"]
+  },
   {
     "image": "./images_jpeg/ZZZ/Vivian.jpg",
-    "sizes": [
-      "A5", "A4", "A3"
-    ]
+    "sizes": ["A5", "A4", "A3"]
   },
-    {
+  {
     "image": "./images_jpeg/ZZZ/Evelyn.jpg",
-    "sizes": [
-      "A5"
-    ]
+    "sizes": ["A5"]
   },
-    {
+  {
     "image": "./images_jpeg/ZZZ/Astra.jpg",
-    "sizes": [
-      "A5"
-    ]
+    "sizes": ["A5"]
   },
-    {
+  {
     "image": "./images_jpeg/ZZZ/bellemiyabi.jpg",
-    "sizes": [
-      "A4", "A3"
-    ]
+    "sizes": ["A4", "A3"]
   },
-  
-    {
+
+  {
     "image": "./images_jpeg/ZZZ/MiyabiSoukaku.jpg",
-    "sizes": [
-      "A5"
-    ]
+    "sizes": ["A5"]
   },
-    {
+  {
     "image": "./images_jpeg/ZZZ/Burnice.jpg",
-    "sizes": [
-      "A5","A4"
-    ]
+    "sizes": ["A5", "A4"]
   },
-  
+
   {
     "image": "./images_jpeg/ZZZ/Ellen.jpg",
-    "sizes": [
-      "A5"
-    ]
-  },
-    {
-    "image": "./images_jpeg/ZZZ/neko.jpg",
-    "sizes": [
-      "A5", "A4"
-    ]
+    "sizes": ["A5"]
   },
   {
-    "image": "./images_jpeg/ZZZ/Nekomata.jpg",
-    "sizes": [
-      "A7"
-    ]
+    "image": "./images_jpeg/ZZZ/eepy_neko.jpg",
+    "sizes": ["A5", "A4"]
+  },
+  {
+    "image": "./images_jpeg/ZZZ/Neko_peace.jpg",
+    "sizes": ["A7"]
   },
 
-
-
-
-
- {
+  {
     "image": "./images_jpeg/ZZZ/bellenoodle.jpg",
-    "sizes": [
-      "A7","A5"
-    ]
-  },  {
+    "sizes": ["A7", "A5"]
+  },
+  {
     "image": "./images_jpeg/ZZZ/sjal.jpg",
-    "sizes": [
-      "A7"
-    ]
-  },    {
+    "sizes": ["A7"]
+  },
+  {
     "image": "./images_jpeg/ZZZ/anby_mini.jpg",
-    "sizes": [
-      "A7"
-    ]
+    "sizes": ["A7"]
   },
   {
     "image": "./images_jpeg/ZZZ/jufufu_mini.jpg",
-    "sizes": [
-      "A7"
-    ]
+    "sizes": ["A7"]
   },
 
-
-
-
   {
-    "image": "./images_jpeg/ZZZ/swimsuit_mini.jpg",
-    "sizes": [
-      "A7"
-    ]
+    "image": "./images_jpeg/ZZZ/swimsuit_belle_mini.jpg",
+    "sizes": ["A7"]
   },
   {
-    "image": "./images_jpeg/ZZZ/trigger.jpg",
-    "sizes": [
-      "A7"
-    ]
-  } , {
-    "image": "./images_jpeg/ZZZ/mini-min.jpg",
-    "sizes": [
-      "A7"
-    ]
+    "image": "./images_jpeg/ZZZ/trigger_mini.jpg",
+    "sizes": ["A7"]
   },
   {
-    "image": "./images_jpeg/ZZZ/mini.jpg",
-    "sizes": [
-      "A7"
-    ]
+    "image": "./images_jpeg/ZZZ/vivian_mini.jpg",
+    "sizes": ["A7"]
+  },
+  {
+    "image": "./images_jpeg/ZZZ/alice_mini.jpg",
+    "sizes": ["A7"]
   }
-
-
 ]
