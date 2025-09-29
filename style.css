@@ -1,7 +1,7 @@
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  background: #f6f7fb;
+  background: #edeae3;
   color: #333;
   padding: 20px;
 }
@@ -124,13 +124,13 @@ button, input, select, textarea {
   margin-top: 30px;
 
   /* Border with radius */
-  border: 2px solid #333;
+  border: 1px solid #333;
   border-radius: 12px;
 
   /* Optional styling */
-  background: #fff;
+  background: #ffffff;
   overflow-y: auto;
-  box-shadow: -2px 0 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
 }
 
 .total{
