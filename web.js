@@ -70,6 +70,7 @@ function renderTab(categories, tab) {
             data-name="${item.name}" 
             data-size="${size}" 
             data-price="${sizeConfig[size].price}" 
+             data-image="${item.image}" 
             style="background:${sizeConfig[size].color}">
             + ${size} (${sizeConfig[size].price})
           </button>`
@@ -84,6 +85,7 @@ function renderTab(categories, tab) {
   // Attach listeners after rendering
   container.querySelectorAll(".size-tag").forEach((btn) => {
     btn.addEventListener("click", () => {
+    const image = btn.dataset.image;
       const id = btn.dataset.id;
       const name = btn.dataset.name;
       const size = btn.dataset.size;
@@ -93,7 +95,7 @@ function renderTab(categories, tab) {
       // Determine type based on size
       const type = sizeTypeMap[size] || "other"; // fallback if unknown
 
-      addToCart({ id, name, size, price, type });
+      addToCart({ id, name, size, price, type, image });
     });
   });
 }
@@ -146,16 +148,18 @@ function renderCart() {
     totalDiv.textContent = "Total: $0";
     return;
   }
-  cartDiv.innerHTML = cart
-    .map(
-      (c, idx) => `
-    <div class="cart-item">
-      ${c.id} - ${c.name} [${c.size}] $${c.price}
-      <button onclick="removeFromCart(${idx})">x</button>
+cartDiv.innerHTML = cart
+  .map((c, idx) => `
+    <div class="cart-item" style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+      <img src="${c.image}" alt="${c.name}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;">
+      <div>
+        ${c.id} - ${c.name} [${c.size}] $${c.price}
+      </div>
+      <button onclick="removeFromCart(${idx})" style="margin-left:auto;">x</button>
     </div>
-  `
-    )
-    .join("");
+  `)
+  .join("");
+
 
   updateCartTotal();
 }
