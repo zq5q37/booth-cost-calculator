@@ -1,24 +1,35 @@
+import {defaultDeals } from "./data.js";
+
 const sizeConfig = {
   A7: { price: "$4", color: "#ff6fb2" },
   A5: { price: "$8", color: "#52c8cc" },
   A4: { price: "$12", color: "#cf6fff" },
   A3: { price: "$20", color: "#ffcc6f" },
   C: { price: "$6", color: "#91C768" },
+  KeyC: { price: "$8", color: "#d59351ff" },
 };
 
 function categorizeImages(data) {
-  const categories = { front: [], back: [], insideLeft: [], insideRight: [] };
+  const categories = { front: [], back: [], insideLeft: [], insideRight: [], keychains: [] };
   let baCounter = 1,
     zzzCounter = 1,
     genCounter = 1,
     hsrCounter = 1,
-    miscCounter = 1;
+    miscCounter = 1,
+    keychainsCounter = 1;
 
   data.forEach((item) => {
     const imagePath = item.image.toLowerCase();
     const imageName = item.image.split("/").pop().split(".")[0];
 
-    if (imagePath.includes("/ba/")) {
+    if (imagePath.includes("/keychains_webp/")) {
+      categories.keychains.push({
+        ...item,
+        name: imageName,
+        id: `K${keychainsCounter++}`,
+      });
+    }
+    else if (imagePath.includes("/ba/")) {
       categories.back.push({ ...item, name: imageName, id: `B${baCounter++}` });
     } else if (imagePath.includes("/zzz/")) {
       categories.front.push({
@@ -45,6 +56,7 @@ function categorizeImages(data) {
         id: `M${miscCounter++}`,
       });
     }
+
   });
   return categories;
 }
@@ -141,8 +153,6 @@ function renderCart() {
   const cartDiv = document.getElementById("cart");
   const totalDiv = document.getElementById("cart-total");
 
-  console.log(cart);
-
   if (cart.length === 0) {
     cartDiv.innerHTML = "<em>Cart is empty</em>";
     totalDiv.textContent = "Total: $0";
@@ -180,26 +190,34 @@ function updateCartTotal() {
   });
 
   // Handle keychains and stands as Bundle2
-  const others = cart.filter((c) => c.type !== "print");
-  const grouped = {};
-
-  others.forEach((item) => {
-    if (!grouped[item.name]) grouped[item.name] = [];
-    grouped[item.name].push(item);
+    const keychains = cart.filter((c) => c.size == "KeyC");
+      keychains.forEach((p, i) => {
+    // every 2nd keychain is $7
+    if ((i + 1) % 2 !== 0){total += 8}  else {total+=7};
   });
 
-  for (const name in grouped) {
-    const itemsArray = grouped[name];
-    const count = itemsArray.length;
-    const type = itemsArray[0].type;
-    const deal = defaultDeals[type];
+//   const others = cart.filter((c) => c.type !== "print");
+//   const grouped = {};
 
-    if (deal?.type === "Bundle2") {
-      const pairs = Math.floor(count / 2);
-      const singles = count % 2;
-      total += pairs * deal.pair + singles * deal.single;
-    }
-  }
+//   others.forEach((item) => {
+//     if (!grouped[item.name]) grouped[item.name] = [];
+//     grouped[item.name].push(item);
+//   });
+
+//   console.log("grouped: ", grouped)
+
+//   for (const name in grouped) {
+//     const itemsArray = grouped[name];
+//     const count = itemsArray.length;
+//     const type = itemsArray[0].size;
+//     const deal = defaultDeals[type];
+
+//     if (deal?.type === "Bundle2") {
+//       const pairs = Math.floor(count / 2);
+//       const singles = count % 2;
+//       total += pairs * deal.pair + singles * deal.single;
+//     }
+//   }
 
   document.getElementById("cart-total").textContent = `Total: $${total}`;
 }

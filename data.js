@@ -13,7 +13,7 @@ export const defaultItems = [
   {
     name: "Keychain",
     price: 8,
-    type: "keychain",
+    type: "KeyC",
     color: "#FFA07A",
     hasSpecial: true,
   },
@@ -23,7 +23,7 @@ export const defaultItems = [
 
 export const defaultDeals = {
   print: "Buy2Free1",
-  keychain: {
+  keyc: {
     type: "Bundle2",
     single: 8,
     pair: 15,
