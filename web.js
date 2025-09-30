@@ -162,12 +162,21 @@ const defaultSound = loadSound("sounds/zzz_reward_receive.mp3");
 const specialSounds = {
   KZ1: loadSound("sounds/zzz_gacha.mp3"),
 };
+const khSounds = [
+  loadSound("sounds/hsr_kururin.mp3"),
+  loadSound("sounds/hsr_kurukuru.mp3"),
+];
 
 // Function to play without lag
 function playSound(item) {
   let sound;
 
-  if (specialSounds[item.id]) {
+  // Rule: if ID starts with "KH" → random from pool
+  if (item.id.startsWith("KH") || item.id.startsWith("H")) {
+    const randIndex = Math.floor(Math.random() * khSounds.length);
+    sound = khSounds[randIndex];
+  }
+  else if (specialSounds[item.id]) {
     sound = specialSounds[item.id];
   } else if (specialSounds[item.size]) {
     sound = specialSounds[item.size];
