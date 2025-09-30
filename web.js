@@ -144,9 +144,40 @@ function renderTab(categories, tab) {
       // Determine type based on size
       const type = sizeTypeMap[size] || "other"; // fallback if unknown
 
-      addToCart({ id, name, size, price, type, image });
+      const item = { id, name, size, price, type, image };
+      addToCart(item);
+      playSound(item);
     });
   });
+}
+
+// Preload sounds into memory
+function loadSound(src) {
+  const audio = new Audio(src);
+  audio.preload = "auto";
+  return audio;
+}
+
+const defaultSound = loadSound("sounds/zzz_reward_receive.mp3");
+const specialSounds = {
+  KZ1: loadSound("sounds/zzz_gacha.mp3"),
+};
+
+// Function to play without lag
+function playSound(item) {
+  let sound;
+
+  if (specialSounds[item.id]) {
+    sound = specialSounds[item.id];
+  } else if (specialSounds[item.size]) {
+    sound = specialSounds[item.size];
+  } else {
+    sound = defaultSound;
+  }
+
+  // Clone the node so overlapping clicks don’t cut each other
+  const clone = sound.cloneNode();
+  clone.play().catch(err => console.warn("Sound play error:", err));
 }
 
 const sizeTypeMap = {
@@ -288,17 +319,27 @@ document.addEventListener(
 // );
 
 var lastTouchEnd = 0;
-document.addEventListener('touchend', function (event) {
-  var now = (new Date()).getTime();
-  if (now - lastTouchEnd <= 300) {
-    event.preventDefault();
-  }
-  lastTouchEnd = now;
-}, false);
+document.addEventListener(
+  "touchend",
+  function (event) {
+    var now = new Date().getTime();
+    if (now - lastTouchEnd <= 300) {
+      event.preventDefault();
+    }
+    lastTouchEnd = now;
+  },
+  false
+);
 
-document.addEventListener('touchmove', function (event) {
-  if (event.scale !== 1) { event.preventDefault(); }
-}, false);
+document.addEventListener(
+  "touchmove",
+  function (event) {
+    if (event.scale !== 1) {
+      event.preventDefault();
+    }
+  },
+  false
+);
 
 function resetCart() {
   cart = []; // just clear it directly
@@ -311,7 +352,6 @@ function resetCart() {
 document.getElementById("reset").addEventListener("click", () => {
   resetCart();
 });
-
 
 const saveSound = document.getElementById("save-sound");
 
@@ -326,7 +366,7 @@ function cacheOrders() {
 
 function saveOrder(order) {
   saveSound.currentTime = 0; // rewind to start
-  saveSound.play().catch(err => console.warn("Audio play failed:", err));
+  saveSound.play().catch((err) => console.warn("Audio play failed:", err));
   savedOrders.push(order);
   cacheOrders(); // update localStorage
   renderOrderList(); // update the UI
@@ -344,7 +384,7 @@ document.getElementById("save").addEventListener("click", () => {
   saveOrder({
     timestamp,
     items: [...cart],
-    total
+    total,
   });
 
   // renderOrderList(); // update the UI
@@ -436,7 +476,11 @@ document.getElementById("clear-orders").addEventListener("click", () => {
 });
 
 function clearOrders() {
-  if (confirm("Are you sure you want to clear ALL saved orders? This cannot be undone.")) {
+  if (
+    confirm(
+      "Are you sure you want to clear ALL saved orders? This cannot be undone."
+    )
+  ) {
     savedOrders = [];
     cacheOrders();
     renderOrderList();
