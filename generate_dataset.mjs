@@ -51,5 +51,5 @@ fs.readdirSync(baseDir).forEach((file) => {
   }
 });
 
-fs.writeFileSync('kc_dataset.json', JSON.stringify(dataset, null, 2));
+fs.writeFileSync('temp_dataset.json', JSON.stringify(dataset, null, 2));
 console.log('Dataset generated!');
