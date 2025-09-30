@@ -145,3 +145,12 @@ button, input, select, textarea {
   border: 1px solid #333;
   border-radius: 12px;
 }
+
+.cash-buttons{
+  padding: 2px;
+  buttons{
+    padding: 2px;
+    border-radius: 1px;
+    color: #23271a;
+  }
+}
