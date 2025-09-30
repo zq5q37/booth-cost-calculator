@@ -193,7 +193,7 @@ function renderCart() {
   const totalDiv = document.getElementById("cart-total");
 
   if (cart.length === 0) {
-    cartDiv.innerHTML = "<em>Cart is empty</em>";
+    cartDiv.innerHTML = "";
     totalDiv.textContent = "Total: $0";
     return;
   }
@@ -257,8 +257,10 @@ function updateCartTotal() {
   });
 
   document.getElementById("cart-total").textContent = `Total: $${total}`;
+  syncTotal = total;
   updateCashTotal(total);
 }
+let syncTotal = 0;
 
 // Prevent pinch-to-zoom
 document.addEventListener(
@@ -283,9 +285,141 @@ document.addEventListener(
   { passive: false }
 );
 
-// ------------------ Reset ------------------
-document.getElementById("reset").addEventListener("click", () => {
+function resetCart() {
   cart = []; // just clear it directly
   renderCart(); // this will also call updateCartTotal()
   updateCashTotal(0); // reset cash calculator too
+}
+
+// ------------------ Reset ------------------
+document.getElementById("reset").addEventListener("click", () => {
+  resetCart();
+});
+
+// ------------------ Save ------------------
+// Load cached orders on page load
+let savedOrders = JSON.parse(localStorage.getItem("savedOrders") || "[]");
+
+// Function to save to cache whenever orders change
+function cacheOrders() {
+  localStorage.setItem("savedOrders", JSON.stringify(savedOrders));
+}
+
+function saveOrder(order) {
+  savedOrders.push(order);
+  cacheOrders(); // update localStorage
+  renderOrderList(); // update the UI
+}
+
+document.getElementById("save").addEventListener("click", () => {
+  if (cart.length === 0) {
+    alert("Cart is empty, nothing to save!");
+    return;
+  }
+
+  const timestamp = new Date().toLocaleString(); // device-local time
+
+  const total = syncTotal;
+  saveOrder({
+    timestamp,
+    items: [...cart],
+    total
+  });
+
+  // renderOrderList(); // update the UI
+  resetCart();
+});
+
+function renderOrderList() {
+  const orderListDiv = document.getElementById("order-list");
+
+  if (savedOrders.length === 0) {
+    orderListDiv.innerHTML = "<em>No previous orders</em>";
+    return;
+  }
+
+  orderListDiv.innerHTML = savedOrders
+    .slice() // copy so we don't mutate
+    .reverse() // newest first
+    .map(
+      (order, idx) => `
+        <div style="border:1px solid #ccc; margin-bottom:8px; padding:6px; border-radius:4px;">
+          <div><strong>Order ${savedOrders.length - idx}</strong> (${
+        order.timestamp
+      })</div> $${order.total}
+          <ul style="margin:4px 0 0 12px; padding:0;">
+            ${order.items
+              .map(
+                (item) =>
+                  `<li>${item.id} - ${item.name} [${item.size}] $${item.price}</li>`
+              )
+              .join("")}
+          </ul>
+        </div>
+      `
+    )
+    .join("");
+}
+
+// ------------------ Download ------------------
+// Download all saved orders
+document.getElementById("download").addEventListener("click", () => {
+  if (savedOrders.length === 0) {
+    alert("No saved orders to download!");
+    return;
+  }
+
+  // Flatten orders into rows
+  const header = [
+    "Date",
+    "Timestamp",
+    "ID",
+    "Name",
+    "Size",
+    "Price",
+    "Order Total",
+  ];
+  const rows = [];
+
+  savedOrders.forEach((order, idx) => {
+    order.items.forEach((item) => {
+      rows.push([
+        order.timestamp,
+        item.id,
+        item.name,
+        item.size,
+        item.price,
+        order.total,
+      ]);
+    });
+  });
+
+  // Build CSV string
+  let csvContent = header.join(",") + "\n";
+  csvContent += rows.map((r) => r.join(",")).join("\n");
+
+  // Download
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.setAttribute("href", url);
+  link.setAttribute("download", "orders.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  clearOrders();
+});
+
+document.getElementById("clear-orders").addEventListener("click", () => {
+  clearOrders();
+});
+function clearOrders() {
+  savedOrders = [];
+  cacheOrders();
+  renderOrderList();
+}
+
+// On page load, render cached orders
+document.addEventListener("DOMContentLoaded", () => {
+  renderOrderList();
 });
