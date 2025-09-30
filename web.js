@@ -313,20 +313,6 @@ document.addEventListener(
   { passive: false }
 );
 
-// Prevent double-tap zoom
-// let lastTouch = 0;
-// document.addEventListener(
-//   "touchend",
-//   function (event) {
-//     const now = Date.now();
-//     if (now - lastTouch <= 300) {
-//       event.preventDefault();
-//     }
-//     lastTouch = now;
-//   },
-//   { passive: false }
-// );
-
 var lastTouchEnd = 0;
 document.addEventListener(
   "touchend",
@@ -413,7 +399,7 @@ function renderOrderList() {
     .reverse() // newest first
     .map(
       (order, idx) => `
-        <div style="border:1px solid #ccc; margin-bottom:8px; padding:6px; border-radius:4px;">
+        <div style="border:1px solid #ccc; margin-bottom:8px; width: 100%; padding:10px; padding-left: 15px; border-radius:5px;">
           <div><strong>Order ${savedOrders.length - idx}</strong> (${
         order.timestamp
       })</div> $${order.total}
