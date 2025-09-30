@@ -158,9 +158,10 @@ function loadSound(src) {
   return audio;
 }
 
-const defaultSound = loadSound("sounds/zzz_reward_receive.mp3");
+const zzzSound = loadSound("sounds/zzz_reward_receive.mp3");
 const specialSounds = {
   KZ1: loadSound("sounds/zzz_gacha.mp3"),
+  KH1:loadSound("sounds/hsr_gacha.mp3"),
 };
 const khSounds = [
   loadSound("sounds/hsr_kururin.mp3"),
@@ -171,17 +172,22 @@ const khSounds = [
 function playSound(item) {
   let sound;
 
+  if (specialSounds[item.id]) {
+    sound = specialSounds[item.id];
+  }
   // Rule: if ID starts with "KH" → random from pool
-  if (item.id.startsWith("KH") || item.id.startsWith("H")) {
+  else if (item.id.startsWith("KH") || item.id.startsWith("H")) {
     const randIndex = Math.floor(Math.random() * khSounds.length);
     sound = khSounds[randIndex];
   }
-  else if (specialSounds[item.id]) {
-    sound = specialSounds[item.id];
-  } else if (specialSounds[item.size]) {
+  else if (item.id.startsWith("KZ") || item.id.startsWith("Z")) {
+    sound = zzzSound;
+  }
+
+   else if (specialSounds[item.size]) {
     sound = specialSounds[item.size];
   } else {
-    sound = defaultSound;
+    // sound = defaultSound;
   }
 
   // Clone the node so overlapping clicks don’t cut each other
