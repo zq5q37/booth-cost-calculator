@@ -217,6 +217,8 @@ function renderCart() {
 window.removeFromCart = function (index) {
   cart.splice(index, 1);
   renderCart();
+  updateCartTotal();
+  // updateCashTotal(syncTotal);
 };
 
 function updateCartTotal() {
