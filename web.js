@@ -309,6 +309,9 @@ document.getElementById("reset").addEventListener("click", () => {
   resetCart();
 });
 
+
+const saveSound = document.getElementById("save-sound");
+
 // ------------------ Save ------------------
 // Load cached orders on page load
 let savedOrders = JSON.parse(localStorage.getItem("savedOrders") || "[]");
@@ -319,6 +322,8 @@ function cacheOrders() {
 }
 
 function saveOrder(order) {
+  saveSound.currentTime = 0; // rewind to start
+  saveSound.play().catch(err => console.warn("Audio play failed:", err));
   savedOrders.push(order);
   cacheOrders(); // update localStorage
   renderOrderList(); // update the UI
