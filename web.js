@@ -122,7 +122,7 @@ function renderTab(categories, tab) {
             data-price="${sizeConfig[size].price}" 
              data-image="${item.image}" 
             style="background:${sizeConfig[size].color}">
-            + ${size} (${sizeConfig[size].price})
+            + ${size}
           </button>`
           )
           .join("")}
