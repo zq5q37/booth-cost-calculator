@@ -4,13 +4,22 @@ body {
   background: #edeae3;
   color: #333;
   padding: 20px;
+
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE/Edge */
+  user-select: none; /* Standard */
 }
 
-html, body {
+html,
+body {
   -webkit-text-size-adjust: 100%; /* prevents iOS auto-zoom on small text */
 }
 
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
   font-size: 16px; /* important for iOS to avoid auto zoom */
 }
 
@@ -131,28 +140,28 @@ button, input, select, textarea {
   background: #ffffff;
   overflow-y: auto;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
-  .reset-button{
+  .reset-button {
     color: #ffffff;
     padding: 5px;
     border-radius: 5px;
   }
 }
 
-.total{
+.total {
   padding-top: 10px;
   font-size: 24px;
 }
 
-#cash-payment{
-    margin-top: 15px;
-    padding: 15px;
-    /* Border with radius */
+#cash-payment {
+  margin-top: 15px;
+  padding: 15px;
+  /* Border with radius */
   border: 1px solid #333;
   border-radius: 12px;
 }
 
-#cash-buttons{
-  button{
+#cash-buttons {
+  button {
     border-radius: 5px;
     color: #23271a;
   }
