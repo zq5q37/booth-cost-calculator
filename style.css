@@ -131,6 +131,11 @@ button, input, select, textarea {
   background: #ffffff;
   overflow-y: auto;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+  .reset-button{
+    color: #edeae3;
+    padding: 5px;
+    border-radius: 5px;
+  }
 }
 
 .total{

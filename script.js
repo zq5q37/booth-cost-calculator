@@ -105,13 +105,4 @@ function renderCartItems() {
   });
 }
 
-// ------------------ Reset ------------------
-document.getElementById("reset").addEventListener("click", () => {
-  items.forEach(i => {
-    state[i.name]=0;
-    if(i.hasSpecial) state[`${i.name}_special`] = 0;
-    if(document.getElementById(`count-${i.name}`)) document.getElementById(`count-${i.name}`).textContent = "0";
-    if(i.hasSpecial && document.getElementById(`count-${i.name}_special`)) document.getElementById(`count-${i.name}_special`).textContent="0";
-  });
-  updateTotal();
-});
+

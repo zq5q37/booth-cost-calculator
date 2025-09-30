@@ -5,14 +5,24 @@ const sizeConfig = {
   A3: { price: "$20", color: "#ffcc6f" },
   C: { price: "$6", color: "#91C768" },
   KeyC: { price: "$8", color: "#d59351ff" },
-  Scratch: {price: "$0", color: "#000"},
-  Stand: {price: "$15", color: "#4d5cffff"},
-  Sticker: {price: "$2", color: "#8b8b8bff"},
-  StickerSheet: {price: "$8", color: "#905050ff"},
+  Scratch: { price: "$0", color: "#000" },
+  Stand: { price: "$15", color: "#4d5cffff" },
+  Sticker: { price: "$2", color: "#8b8b8bff" },
+  StickerSheet: { price: "$8", color: "#905050ff" },
 };
 
 function categorizeImages(data) {
-  const categories = { front: [], back: [], insideLeft: [], insideRight: [], zzzkeychains: [],  bakeychains: [],  hsrkeychains: [], stands:[], stickers:[]};
+  const categories = {
+    front: [],
+    back: [],
+    insideLeft: [],
+    insideRight: [],
+    zzzkeychains: [],
+    bakeychains: [],
+    hsrkeychains: [],
+    stands: [],
+    stickers: [],
+  };
   let baCounter = 1,
     zzzCounter = 1,
     genCounter = 1,
@@ -21,9 +31,8 @@ function categorizeImages(data) {
     zzzkeychainsCounter = 1,
     bakeychainsCounter = 1,
     hsrkeychainsCounter = 1,
-    standsCounter=1,
+    standsCounter = 1,
     stickerCounter = 1;
-
 
   data.forEach((item) => {
     const imagePath = item.image.toLowerCase();
@@ -35,37 +44,31 @@ function categorizeImages(data) {
         name: imageName,
         id: `KZ${zzzkeychainsCounter++}`,
       });
-    }
-    else if (imagePath.includes("/keychains_webp/ba")) {
+    } else if (imagePath.includes("/keychains_webp/ba")) {
       categories.bakeychains.push({
         ...item,
         name: imageName,
         id: `KB${bakeychainsCounter++}`,
       });
-    }
-    else if (imagePath.includes("/keychains_webp/hsr")) {
+    } else if (imagePath.includes("/keychains_webp/hsr")) {
       categories.hsrkeychains.push({
         ...item,
         name: imageName,
         id: `KH${hsrkeychainsCounter++}`,
       });
-    }
-    else if (imagePath.includes("/standees/")) {
+    } else if (imagePath.includes("/standees/")) {
       categories.stands.push({
         ...item,
         name: imageName,
         id: `S${standsCounter++}`,
       });
-    }
-        else if (imagePath.includes("/stickers/")) {
+    } else if (imagePath.includes("/stickers/")) {
       categories.stickers.push({
         ...item,
         name: imageName,
         id: `S${stickerCounter++}`,
       });
-    }
-
-    else if (imagePath.includes("/ba/")) {
+    } else if (imagePath.includes("/ba/")) {
       categories.back.push({ ...item, name: imageName, id: `B${baCounter++}` });
     } else if (imagePath.includes("/zzz/")) {
       categories.front.push({
@@ -92,7 +95,6 @@ function categorizeImages(data) {
         id: `M${miscCounter++}`,
       });
     }
-
   });
   return categories;
 }
@@ -133,12 +135,11 @@ function renderTab(categories, tab) {
   // Attach listeners after rendering
   container.querySelectorAll(".size-tag").forEach((btn) => {
     btn.addEventListener("click", () => {
-    const image = btn.dataset.image;
+      const image = btn.dataset.image;
       const id = btn.dataset.id;
       const name = btn.dataset.name;
       const size = btn.dataset.size;
       const price = parseInt(btn.dataset.price.replace(/\$/g, ""), 10);
-
 
       // Determine type based on size
       const type = sizeTypeMap[size] || "other"; // fallback if unknown
@@ -155,7 +156,7 @@ const sizeTypeMap = {
   A7: "print",
   C: "print",
   Sticker: "print",
-  StickerSheet: "print"
+  StickerSheet: "print",
   // add other types if needed
 };
 
@@ -196,8 +197,9 @@ function renderCart() {
     totalDiv.textContent = "Total: $0";
     return;
   }
-cartDiv.innerHTML = cart
-  .map((c, idx) => `
+  cartDiv.innerHTML = cart
+    .map(
+      (c, idx) => `
     <div class="cart-item" style="display:flex; align-items:center; gap:8px; margin-bottom:8px; font-size:18px;">
       <img src="${c.image}" alt="${c.name}" style="width:70px; height:70px; object-fit:cover; border-radius:4px;">
       <div>
@@ -205,58 +207,85 @@ cartDiv.innerHTML = cart
       </div>
       <button onclick="removeFromCart(${idx})" style="width:30px; height:30px; margin-left:auto; font-size:25px;">-</button>
     </div>
-  `)
-  .join("");
-
+  `
+    )
+    .join("");
 
   updateCartTotal();
 }
 
-window.removeFromCart = function(index) {
+window.removeFromCart = function (index) {
   cart.splice(index, 1);
   renderCart();
-}
+};
 
 function updateCartTotal() {
   let total = 0;
 
   // Group prints for Buy2Free1
   const prints = cart.filter((c) => c.type === "print");
+
+  // Sort highest → lowest
+  prints.sort((a, b) => b.price - a.price);
+
   prints.forEach((p, i) => {
-    // every 3rd print is free
-    if ((i + 1) % 3 !== 0) total += p.price;
+    // Every 3rd print (cheapest, because sorted) is free
+    if ((i + 1) % 3 !== 0) {
+      total += p.price;
+    }
   });
 
   // Handle keychains and stands as Bundle2
-    const keychains = cart.filter((c) => c.size == "KeyC");
-      keychains.forEach((p, i) => {
+  const keychains = cart.filter((c) => c.size == "KeyC");
+  keychains.forEach((p, i) => {
     // every 2nd keychain is $7
-    if ((i + 1) % 2 !== 0){total += 8}  else {total+=7};
+    if ((i + 1) % 2 !== 0) {
+      total += 8;
+    } else {
+      total += 7;
+    }
   });
 
-      const stands = cart.filter((c) => c.size == "Stand");
-      stands.forEach((p, i) => {
+  const stands = cart.filter((c) => c.size == "Stand");
+  stands.forEach((p, i) => {
     // every 2nd stand is $10
-    if ((i + 1) % 2 !== 0){total += 15}  else {total+=10};
+    if ((i + 1) % 2 !== 0) {
+      total += 15;
+    } else {
+      total += 10;
+    }
   });
-
 
   document.getElementById("cart-total").textContent = `Total: $${total}`;
   updateCashTotal(total);
 }
 
 // Prevent pinch-to-zoom
-document.addEventListener('touchmove', function (event) {
-  if (event.scale !== 1) event.preventDefault();
-}, { passive: false });
+document.addEventListener(
+  "touchmove",
+  function (event) {
+    if (event.scale !== 1) event.preventDefault();
+  },
+  { passive: false }
+);
 
 // Prevent double-tap zoom
 let lastTouch = 0;
-document.addEventListener('touchend', function (event) {
-  const now = Date.now();
-  if (now - lastTouch <= 300) {
-    event.preventDefault();
-  }
-  lastTouch = now;
-}, { passive: false });
+document.addEventListener(
+  "touchend",
+  function (event) {
+    const now = Date.now();
+    if (now - lastTouch <= 300) {
+      event.preventDefault();
+    }
+    lastTouch = now;
+  },
+  { passive: false }
+);
 
+// ------------------ Reset ------------------
+document.getElementById("reset").addEventListener("click", () => {
+  cart = []; // just clear it directly
+  renderCart(); // this will also call updateCartTotal()
+  updateCashTotal(0); // reset cash calculator too
+});
