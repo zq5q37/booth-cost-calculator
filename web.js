@@ -272,18 +272,31 @@ document.addEventListener(
 );
 
 // Prevent double-tap zoom
-let lastTouch = 0;
-document.addEventListener(
-  "touchend",
-  function (event) {
-    const now = Date.now();
-    if (now - lastTouch <= 300) {
-      event.preventDefault();
-    }
-    lastTouch = now;
-  },
-  { passive: false }
-);
+// let lastTouch = 0;
+// document.addEventListener(
+//   "touchend",
+//   function (event) {
+//     const now = Date.now();
+//     if (now - lastTouch <= 300) {
+//       event.preventDefault();
+//     }
+//     lastTouch = now;
+//   },
+//   { passive: false }
+// );
+
+var lastTouchEnd = 0;
+document.addEventListener('touchend', function (event) {
+  var now = (new Date()).getTime();
+  if (now - lastTouchEnd <= 300) {
+    event.preventDefault();
+  }
+  lastTouchEnd = now;
+}, false);
+
+document.addEventListener('touchmove', function (event) {
+  if (event.scale !== 1) { event.preventDefault(); }
+}, false);
 
 function resetCart() {
   cart = []; // just clear it directly
