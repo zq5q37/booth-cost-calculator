@@ -302,6 +302,7 @@ function resetCart() {
   cart = []; // just clear it directly
   renderCart(); // this will also call updateCartTotal()
   updateCashTotal(0); // reset cash calculator too
+  setCashGiven(0);
 }
 
 // ------------------ Reset ------------------
@@ -431,10 +432,13 @@ document.getElementById("download").addEventListener("click", () => {
 document.getElementById("clear-orders").addEventListener("click", () => {
   clearOrders();
 });
+
 function clearOrders() {
-  savedOrders = [];
-  cacheOrders();
-  renderOrderList();
+  if (confirm("Are you sure you want to clear ALL saved orders? This cannot be undone.")) {
+    savedOrders = [];
+    cacheOrders();
+    renderOrderList();
+  }
 }
 
 // On page load, render cached orders
