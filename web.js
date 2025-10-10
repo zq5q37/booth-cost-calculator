@@ -8,7 +8,7 @@ const sizeConfig = {
   Scratch: { price: "$0", color: "#000" },
   Stand: { price: "$15", color: "#4d5cffff" },
   Sticker: { price: "$2", color: "#8b8b8bff" },
-  StickerSheet: { price: "$8", color: "#905050ff" },
+  StickerSheet: { price: "$5", color: "#905050ff" },
 };
 
 function categorizeImages(data) {
