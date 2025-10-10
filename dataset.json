@@ -14,7 +14,7 @@
   },
   {
     "image": "./images_webp/BA/KoharuUi.webp",
-    "sizes": ["A5", "A4"]
+    "sizes": ["C"]
   },
   {
     "image": "./images_webp/BA/Maki.webp",
@@ -22,7 +22,7 @@
   },
   {
     "image": "./images_webp/BA/Mika.webp",
-    "sizes": ["A5"]
+    "sizes": ["C"]
   },
   {
     "image": "./images_webp/BA/TokiKoyuki.webp",
@@ -34,15 +34,15 @@
   },
   {
     "image": "./images_webp/BA/miyuswim.webp",
-    "sizes": ["A5", "A4"]
+    "sizes": ["C"]
   },
   {
     "image": "./images_webp/BA/kisaki.webp",
-    "sizes": ["A5"]
+    "sizes": ["C"]
   },
   {
     "image": "./images_webp/BA/momi.webp",
-    "sizes": ["A5"]
+    "sizes": ["C"]
   },
   {
     "image": "./images_webp/BA/ps68.webp",
